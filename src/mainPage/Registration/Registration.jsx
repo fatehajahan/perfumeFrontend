@@ -19,7 +19,7 @@ const Registration = () => {
     }
     const handleSubmit = () => {
         console.log(userData, "userdata")
-        axios.post(`${import.meta.env.VITE_APP_URL}/authentication/registration`, userData)
+        axios.post("http://localhost:3000/api/v1/authentication/registration", userData)
             .then((res) => {
                 toast.success(res.data.message)
                 console.log('reg done')

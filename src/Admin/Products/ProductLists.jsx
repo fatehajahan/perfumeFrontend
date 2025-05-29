@@ -8,7 +8,7 @@ const ProductLists = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_APP_URL}/product/getallproduct`)
+        axios.get(`https://perfumebackend-yv8k.onrender.com/api/v1/product/getallproduct`)
             .then((res) => setProducts(res.data.data))
     }, [])
     console.log(products)
@@ -16,7 +16,7 @@ const ProductLists = () => {
     const TABLE_ROWS = products
 
     const handleDelete = (id) => {
-        axios.delete(`${import.meta.env.VITE_APP_URL}/product/deleteproduct/${id}`)
+        axios.delete(`http://localhost:3000/api/v1/product/deleteproduct/${id}`)
             .then((res) => {
                 console.log(res.data)
                 setProducts(products.filter((product) => product._id !== id))

@@ -17,7 +17,7 @@ const Login = () => {
     }
     const handleSubmit = () => {
         console.log(userData, "userdata")
-        axios.post(`${import.meta.env.VITE_APP_URL}/authentication/login`, userData, {
+        axios.post("http://localhost:3000/api/v1/authentication/login", userData, {
             withCredentials: true,
         }
         )
