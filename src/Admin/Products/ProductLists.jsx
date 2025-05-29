@@ -8,7 +8,7 @@ const ProductLists = () => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        axios.get(`https://perfumebackend-yv8k.onrender.com/api/v1/product/getallproduct`)
+        axios.get("http://localhost:3000/api/v1/product/getallproduct")
             .then((res) => setProducts(res.data.data))
     }, [])
     console.log(products)
