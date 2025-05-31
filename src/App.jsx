@@ -31,6 +31,8 @@ import OtpVerify from "./mainPage/OtpVerify/OtpVerify";
 import AuthProvider from "./provider/AuthProvider";
 import PrivateRoute from "./Admin/PrivateRoute";
 import BuyPerfumes from "./mainPage/BuyPerfumes/BuyPerfumes";
+import Orders from "./Admin/Order/Orders";
+import ProductBuy from "./mainPage/ProductBuy/ProductBuy";
 // import LayoutForAdmin from "./Admin/AdminDashboard/AdminDashboard";
 
 const Layout = () => {
@@ -67,6 +69,7 @@ const router = createBrowserRouter(
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
+        <Route path="/product/:id" element={<ProductBuy />} />
       </Route>
 
       {/* Public Routes outside layout */}
@@ -95,6 +98,7 @@ const router = createBrowserRouter(
         {/* <Route path="/updatesubcategory/:id" element={<SubCategoryUpdate />} /> */}
         <Route path="/productList" element={<ProductLists />} />
         <Route path="/updateProduct/:id" element={<ProductLists />} />
+        <Route path="/orderList" element={<Orders />} />
       </Route>
       
     </Route>

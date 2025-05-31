@@ -10,12 +10,12 @@ const CreateProduct = () => {
         discount: "",
         category: "",
         subCategory: "",
-        image: null
+        images: []
     })
     const handleChange = (e) => {
         console.log(e.target.files)
-        if (e.target.name == "image") {
-            setForm({ ...form, image: e.target.files[0] })
+        if (e.target.name == "images") {
+            setForm({ ...form, images: Array.from(e.target.files) })
         }
         else {
             setForm({
@@ -33,9 +33,9 @@ const CreateProduct = () => {
                 console.log(key, value)
                 console.log(formData)
 
-                if (key == "image") {
-                    formData.append("image", value );
-                } else {
+                if (key == "images") {
+                    value.forEach((file) => formData.append("images", file))
+                } else if( value !== "") {
                     formData.append(key, value)
                 }
 
@@ -44,7 +44,7 @@ const CreateProduct = () => {
             console.log(formData)
 
             const response = await axios.post(
-                `${import.meta.env.VITE_APP_URL}/product/createproduct`,
+                "http://localhost:3000/api/v1/product/createproduct",
                 formData,
                 {
                     headers: {
@@ -161,7 +161,8 @@ const CreateProduct = () => {
                         <input
                             onChange={handleChange}
                             type="file"
-                            name='image'
+                            name='images'
+                            multiple
                             className="w-full border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-400"
                         />
                     </div>
