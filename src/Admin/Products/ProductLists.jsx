@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React from 'react'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -20,11 +21,24 @@ const ProductLists = () => {
             .then((res) => {
                 console.log(res.data)
                 setProducts(products.filter((product) => product._id !== id))
-                alert("product Deleted Successfully")
+                toast.success("product Deleted Successfully")
             })
     }
     return (
         <div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className="p-8">
                 <h2 className="text-4xl font-bold text-center text-gray-600 mb-6">Categoy List</h2>
 
@@ -46,8 +60,8 @@ const ProductLists = () => {
                                     <td className="px-6 py-4">{name}</td>
                                     <td className="px-6 py-4">{description}</td>
                                     <td className="px-6 py-4 text-blue-500 cursor-pointer">
-                                        <Link 
-                                        to={`/updateProduct/${_id}`}
+                                        <Link
+                                            to={`/updateProduct/${_id}`}
                                         >
                                             Update
                                         </Link>

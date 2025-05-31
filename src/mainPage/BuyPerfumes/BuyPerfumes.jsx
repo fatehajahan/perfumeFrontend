@@ -41,7 +41,7 @@ const BuyPerfumes = () => {
                                 className="md:my-0 my-[30px] relative cursor-pointer"
                                 onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
                             >
-                                {product.discount && (
+                                {product.discount > 0 && (
                                     <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
                                         <p className='font-urbanist font-bold text-xs'>Sale!!</p>
                                     </div>

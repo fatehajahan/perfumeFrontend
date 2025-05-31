@@ -7,7 +7,7 @@ import product4 from '../../assets/broughtpageBlue/product4.jpg'
 import { FaCcDiscover, FaCcPaypal, FaCircleArrowLeft, FaCircleArrowRight, FaStar } from "react-icons/fa6";
 import { FaCcMastercard, FaCcVisa, FaCheckCircle } from "react-icons/fa";
 import { SiAmericanexpress } from "react-icons/si";
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Footer from "../../components/Home/Footer/Footer";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
@@ -15,15 +15,15 @@ import axios from "axios";
 const ProductBuy = () => {
     const url = import.meta.env.VITE_APP_URL
     console.log(url)
+    const navigate = useNavigate()
     const [products, setProducts] = useState([]);
     const location = useLocation()
     const product = location.state?.product;
-    const [selectedImage, setSelectedImage] = useState(product.images[0] );
-    // console.log(product.images[0])
-    const arr = [product]
+    console.log(product)
+    const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const getProducts = async () => {
             try {
                 const response = await axios.get(`${url}/product/getallproduct`);
                 setProducts(response.data.data);  // because your backend returns { data: [...] }
@@ -32,7 +32,7 @@ const ProductBuy = () => {
             }
         };
 
-        fetchProducts();
+        getProducts();
     }, []);
     const bestSellers = products.slice(0, 4);
 
@@ -127,17 +127,28 @@ const ProductBuy = () => {
                         </div>
                     </div>
 
+                    {/* review form */}
                     <div className='md:px-0 px-[20px]'>
                         <ReviewForm />
                     </div>
 
+                    {/* related products */}
                     <div className="md:px-0 px-[20px] py-[50px]">
                         <h2 className="font-cormot text-[35px] py-[20px]">Related Products</h2>
                         <div className="grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4">
                             {
                                 bestSellers.map((product, index) => (
-                                    <div key={index} className="md:my-0 my-[50px]">
-                                        <Link to={`/product/${product._id}`} className="product1 cursor-pointer">
+                                    <div
+                                        key={product._id}
+                                        className="md:my-0 my-[30px] relative cursor-pointer"
+                                        onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
+                                    >
+                                        {product.discount > 0 && (
+                                            <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
+                                                <p className='font-urbanist font-bold text-xs'>Sale!!</p>
+                                            </div>
+                                        )}
+                                        <div className="product1 cursor-pointer">
                                             <img src={product.images[0]} alt="" className="" />
                                             <div className='pt-[15px]'>
                                                 <p className='text-[#9D9D9D] text-[15px]'>{product.category}</p>
@@ -153,7 +164,7 @@ const ProductBuy = () => {
                                                     ${product.price}
                                                 </p>
                                             </div>
-                                        </Link>
+                                        </div>
                                     </div>
                                 ))
                             }

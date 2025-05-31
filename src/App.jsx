@@ -5,19 +5,15 @@ import {
   RouterProvider,
   Outlet,
 } from "react-router-dom";
+import { useState } from "react";
 import './App.css'
 import Home from "./mainPage/Home/Home"
 import Navbar from "./components/Home/Navbar/Navbar";
-import BroughtPage from "./mainPage/BroughtPageBlue/BroughtPage";
-import BroughtPageOrange from "./mainPage/BroughtPageOrange/BroughtPageOrange";
 import Contact from "./components/Contact/Contact";
-import { useState } from "react";
 import AddCart from "./mainPage/AddCart/AddCart";
 import ViewCart from "./mainPage/ViewCart/ViewCart";
 import Registration from "./mainPage/Registration/Registration";
 import Login from "./mainPage/Login/Login";
-import Sidebar from "./Admin/Sidebar";
-import Header from "./Admin/Header";
 import AdminDashboard from "./Admin/AdminDashboard/AdminDashboard";
 import CreateCategory from "./Admin/Categories/CreateCategory";
 import CategoryList from "./Admin/Categories/CategoryList";
@@ -33,7 +29,6 @@ import PrivateRoute from "./Admin/PrivateRoute";
 import BuyPerfumes from "./mainPage/BuyPerfumes/BuyPerfumes";
 import Orders from "./Admin/Order/Orders";
 import ProductBuy from "./mainPage/ProductBuy/ProductBuy";
-// import LayoutForAdmin from "./Admin/AdminDashboard/AdminDashboard";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -64,8 +59,8 @@ const router = createBrowserRouter(
       {/* Public/User Layout */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/bluePerfume" element={<BroughtPage />} />
-        <Route path="/orangePerfume" element={<BroughtPageOrange />} />
+        {/* <Route path="/bluePerfume" element={<BroughtPage />} /> */}
+        {/* <Route path="/orangePerfume" element={<BroughtPageOrange />} /> */}
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />

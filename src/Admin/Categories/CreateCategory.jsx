@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 import axios from 'axios';
 
 const CreateCategory = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [categoryName, setCategoryName] = useState("")
     const [categoryDescription, setCategoryDescription] = useState("")
 
@@ -14,14 +17,29 @@ const CreateCategory = () => {
             categoryName,
             categoryDescription
         };
-        axios.post(`${import.meta.env.VITE_APP_URL}/category/createcategory`, data)
-            .then((res) => alert("Category Created Successfully"))
-            .catch((err) => alert("Category Creation Failed"));
+        axios.post(`${url}/category/createcategory`, data)
+            .then((res) => {
+                toast.success(res.data.message)
+            })
+            .catch((err) => toast.error("Category Creation Failed"));
     }
 
     return (
         <div className='flex flex-col items-center justify-center'>
             <h1 className='text-[50px]'>Create a New Category</h1>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div>
                 {/* category name */}
                 <label htmlFor="categoryName">Category's Name</label>

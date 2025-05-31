@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 const CreateProduct = () => {
     const url = import.meta.env.VITE_APP_URL
@@ -37,7 +38,7 @@ const CreateProduct = () => {
 
                 if (key == "images") {
                     value.forEach((file) => formData.append("images", file))
-                } else if( value !== "") {
+                } else if (value !== "") {
                     formData.append(key, value)
                 }
 
@@ -46,15 +47,17 @@ const CreateProduct = () => {
             console.log(formData)
 
             const response = await axios.post(
-                `${url}/product/createproduct`,
+                "http://localhost:3000/api/v1/product/createproduct",
                 formData,
                 {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    }
+                    headers: { "Content-Type": "multipart/form-data" },
+                    withCredentials: true
                 }
             )
-            console.log(response)
+            .then((res)=>{
+                toast.success(res.data.message)
+            })
+            // console.log(response)
         } catch (error) {
             console.log(error)
         }
@@ -75,6 +78,19 @@ const CreateProduct = () => {
     }, [])
     return (
         <div>
+            <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className="max-w-5xl mx-auto px-4 py-8">
                 <h2 className="text-2xl md:text-3xl font-bold mb-2">Create Product</h2>
                 <p className="text-gray-500 mb-6">
