@@ -2,6 +2,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
 const CreateProduct = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [form, setForm] = useState({
         name: "",
         description: "",
@@ -44,7 +46,7 @@ const CreateProduct = () => {
             console.log(formData)
 
             const response = await axios.post(
-                "http://localhost:3000/api/v1/product/createproduct",
+                `${url}/product/createproduct`,
                 formData,
                 {
                     headers: {
@@ -62,13 +64,13 @@ const CreateProduct = () => {
     const [categoryies, setCategories] = useState([])
     const [subCategoryies, setSubCategoryies] = useState([])
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/category/getallcategory")
+        axios.get(`${url}/category/getallcategory`)
             .then((res) => setCategories(res.data.data))
 
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/subcategory/getallsubcategory")
+        axios.get(`${url}/subcategory/getallsubcategory`)
             .then((res) => setSubCategoryies(res.data.data))
     }, [])
     return (

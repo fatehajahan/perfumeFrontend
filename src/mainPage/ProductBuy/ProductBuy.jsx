@@ -4,11 +4,6 @@ import product2 from '../../assets/broughtpageBlue/product2.jpg'
 import product3 from '../../assets/broughtpageBlue/product3.jpg'
 import product4 from '../../assets/broughtpageBlue/product4.jpg'
 
-import extraproduct1 from '../../assets/broughtpageBlue/extraproduct1.jpg'
-import extraproduct2 from '../../assets/broughtpageBlue/extraproduct2.jpg'
-import extraproduct3 from '../../assets/broughtpageBlue/extraproduct3.jpg'
-import extraproduct4 from '../../assets/broughtpageBlue/extraproduct4.jpg'
-
 import { FaCcDiscover, FaCcPaypal, FaCircleArrowLeft, FaCircleArrowRight, FaStar } from "react-icons/fa6";
 import { FaCcMastercard, FaCcVisa, FaCheckCircle } from "react-icons/fa";
 import { SiAmericanexpress } from "react-icons/si";
@@ -18,6 +13,8 @@ import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
 
 const ProductBuy = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [products, setProducts] = useState([]);
     const location = useLocation()
     const product = location.state?.product;
@@ -28,7 +25,7 @@ const ProductBuy = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/product/getallproduct");
+                const response = await axios.get(`${url}/product/getallproduct`);
                 setProducts(response.data.data);  // because your backend returns { data: [...] }
             } catch (error) {
                 console.error('Error fetching products:', error);

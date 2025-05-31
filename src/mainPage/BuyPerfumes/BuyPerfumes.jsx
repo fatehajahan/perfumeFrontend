@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 
 const BuyPerfumes = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [products, setProducts] = useState([]);
     const navigate = useNavigate()
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/product/getallproduct");
+                const response = await axios.get(`${url}/product/getallproduct`);
                 setProducts(response.data.data);  // because your backend returns { data: [...] }
             } catch (error) {
                 console.error('Error fetching products:', error);
