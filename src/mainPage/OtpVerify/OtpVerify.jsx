@@ -14,14 +14,14 @@ const OtpVerify = () => {
     })
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/authentication/lastUser")
+        axios.get(`${import.meta.env.VITE_APP_URL}/authentication/lastUser`)
             .then((res) => setUserData(res.data.data))
     }, [])
 
     const handleOtp = () => {
         console.log("otp :", otp)
         console.log(userData)
-        axios.post("http://localhost:3000/api/v1/authentication/otpVerify", { email: userData.email, otp: otp })
+        axios.post(`${import.meta.env.VITE_APP_URL}/authentication/otpVerify`, { email: userData.email, otp: otp })
             .then((res) => {
                 toast.success("email varified")
                 setTimeout(() => {

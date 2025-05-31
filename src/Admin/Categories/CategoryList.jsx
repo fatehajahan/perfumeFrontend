@@ -6,7 +6,7 @@ const CategoryList = () => {
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/category/getallcategory")
+        axios.get(`${import.meta.env.VITE_APP_URL}/category/getallcategory`)
             .then((res) => setCategories(res.data.data))
     }, [])
     console.log(categories)
@@ -15,7 +15,7 @@ const CategoryList = () => {
     const TABLE_ROWS = categories
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3000/api/v1/category/deletecategory/${id}`)
+        axios.delete(`${import.meta.env.VITE_APP_URL}/category/deletecategory/${id}`)
             .then((res) => {
                 console.log(res.data)
                 setCategories(categories.filter((category) => category._id !== id))

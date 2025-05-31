@@ -44,7 +44,7 @@ const CreateProduct = () => {
             console.log(formData)
 
             const response = await axios.post(
-                "http://localhost:3000/api/v1/product/createproduct",
+                `${import.meta.env.VITE_APP_URL}/product/createproduct`,
                 formData,
                 {
                     headers: {

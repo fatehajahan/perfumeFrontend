@@ -8,7 +8,7 @@ const CreateSubCategory = () => {
     const [category, setCategory] = useState("")
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/category/getallcategory")
+        axios.get(`${import.meta.env.VITE_APP_URL}/category/getallcategory`)
             .then((res) => setCategories(res.data.data))
 
     }, [])
@@ -24,7 +24,7 @@ const CreateSubCategory = () => {
             subCategoryDescription,
             category
         };
-        axios.post("http://localhost:3000/api/v1/subcategory/createsubcategory", data)
+        axios.post(`${import.meta.env.VITE_APP_URL}/subcategory/createsubcategory`, data)
             .then((res) => alert("SubCategory Created Successfully"))
             .catch((err) => alert("SubCategory Creation Failed"));
     }

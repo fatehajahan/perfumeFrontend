@@ -19,7 +19,11 @@ const PrivateRoute = ({ children }) => {
   }, [])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <div className="flex items-center justify-center h-full bg-white rounded-xl shadow-md">
+      <h1 className="text-3xl font-bold text-gray-800 font-urbanist">
+        ...
+      </h1>
+    </div>
   }
 
   return user ? children : <Navigate to="/login" replace />

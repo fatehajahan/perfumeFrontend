@@ -14,7 +14,7 @@ const CreateCategory = () => {
             categoryName,
             categoryDescription
         };
-        axios.post("http://localhost:3000/api/v1/category/createcategory", data)
+        axios.post(`${import.meta.env.VITE_APP_URL}/category/createcategory`, data)
             .then((res) => alert("Category Created Successfully"))
             .catch((err) => alert("Category Creation Failed"));
     }

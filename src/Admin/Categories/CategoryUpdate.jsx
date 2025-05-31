@@ -23,7 +23,7 @@ const CategoryUpdate = () => {
     };
 
     axios
-      .patch(`http://localhost:3000/api/v1/category/updatesinglecategory/${id}`, data)
+      .patch(`${import.meta.env.VITE_APP_URL}/category/updatesinglecategory/${id}`, data)
       .then((res) => {
         alert('Category Updated Successfully');
         setNewCategoryDescription('');

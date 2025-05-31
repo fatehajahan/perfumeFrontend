@@ -58,7 +58,7 @@ const Navbar = ({ setCartOpen }) => {
 
         <div className={`transition duration-300 ${dropdown ? 'translate-x-0' : "md:flex justify-between items-center hidden"}`}>
           <div className="leftNavitems md:flex items-center gap-x-[20px] font-urbanist text-[13px] cursor-pointer">
-            <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>BUY PERFUMES</p>
+            <Link to="/buyPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>BUY PERFUMES</p></Link>
             <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>EXCLUSIVE</p>
             <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>WOMEN</p>
             <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>MEN</p>

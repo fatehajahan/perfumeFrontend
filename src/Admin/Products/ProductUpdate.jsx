@@ -21,13 +21,13 @@ const ProductUpdate = () => {
     const [categoryies, setCategories] = useState([])
     const [subCategoryies, setSubCategoryies] = useState([])
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/category/getallcategory")
+        axios.get(`${import.meta.env.VITE_APP_URL}/category/getallcategory`)
             .then((res) => setCategories(res.data.data))
 
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/subcategory/getallsubcategory")
+        axios.get(`${import.meta.env.VITE_APP_URL}/subcategory/getallsubcategory`)
             .then((res) => setSubCategoryies(res.data.data))
     }, [])
 

@@ -30,7 +30,8 @@ import SubCategoryList from "./Admin/SubCategory/SubCategoryList";
 import OtpVerify from "./mainPage/OtpVerify/OtpVerify";
 import AuthProvider from "./provider/AuthProvider";
 import PrivateRoute from "./Admin/PrivateRoute";
-import LayoutForAdmin from "./Admin/AdminDashboard/AdminDashboard";
+import BuyPerfumes from "./mainPage/BuyPerfumes/BuyPerfumes";
+// import LayoutForAdmin from "./Admin/AdminDashboard/AdminDashboard";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -63,6 +64,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<Home />} />
         <Route path="/bluePerfume" element={<BroughtPage />} />
         <Route path="/orangePerfume" element={<BroughtPageOrange />} />
+        <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
       </Route>
@@ -75,10 +77,14 @@ const router = createBrowserRouter(
       {/* Admin Layout */}
       <Route element={
         <PrivateRoute>
-          <LayoutForAdmin />
+          <AdminDashboard />
         </PrivateRoute>
       }>
-        <Route path="/adminPanel" element={<AdminDashboard />} />
+        <Route path="/adminPanel" element={<div className="flex items-center justify-center h-full bg-white rounded-xl shadow-md">
+          <h1 className="text-3xl font-bold text-gray-800 font-urbanist">
+            Welcome to the Inessa Admin Dashboard
+          </h1>
+        </div>} />
         <Route path="/createcategory" element={<CreateCategory />} />
         <Route path="/categorylist" element={<CategoryList />} />
         <Route path="/createproduct" element={<CreateProduct />} />
@@ -86,9 +92,11 @@ const router = createBrowserRouter(
         <Route path="/updateProduct/:id" element={<ProductUpdate />} />
         <Route path="/createsubcategory" element={<CreateSubCategory />} />
         <Route path="/subCategoryList" element={<SubCategoryList />} />
+        {/* <Route path="/updatesubcategory/:id" element={<SubCategoryUpdate />} /> */}
         <Route path="/productList" element={<ProductLists />} />
         <Route path="/updateProduct/:id" element={<ProductLists />} />
       </Route>
+      
     </Route>
   )
 );
