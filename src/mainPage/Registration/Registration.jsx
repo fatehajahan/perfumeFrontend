@@ -5,6 +5,8 @@ import { Bounce, ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
 
 const Registration = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         firstName: "",
@@ -19,7 +21,7 @@ const Registration = () => {
     }
     const handleSubmit = () => {
         console.log(userData, "userdata")
-        axios.post(`${import.meta.env.VITE_APP_URL}/authentication/registration`, userData)
+        axios.post(`${url}/authentication/registration`, userData)
             .then((res) => {
                 toast.success(res.data.message)
                 console.log('reg done')

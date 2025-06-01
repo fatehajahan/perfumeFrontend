@@ -5,6 +5,8 @@ import login from '../../assets/login/login.png'
 import axios from 'axios';
 
 const Login = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: "",
@@ -17,7 +19,7 @@ const Login = () => {
     }
     const handleSubmit = () => {
         console.log(userData, "userdata")
-        axios.post("http://localhost:3000/api/v1/authentication/login", userData, {
+        axios.post(`${url}/authentication/login`, userData, {
             withCredentials: true,
         }
         )
