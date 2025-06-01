@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { toast, ToastContainer, Bounce } from 'react-toastify'
 import React, { useEffect, useState } from 'react'
 
 const CreateSubCategory = () => {
@@ -25,11 +26,24 @@ const CreateSubCategory = () => {
             category
         };
         axios.post(`${import.meta.env.VITE_APP_URL}/subcategory/createsubcategory`, data)
-            .then((res) => alert("SubCategory Created Successfully"))
-            .catch((err) => alert("SubCategory Creation Failed"));
+            .then((res) => toast.success("SubCategory Created Successfully"))
+            .catch((err) => toast.error("SubCategory Creation Failed"));
     }
     return (
         <div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <div className='flex flex-col items-center justify-center'>
                 <h1 className='text-[50px]'>Create a New Sub Category</h1>
                 <div>

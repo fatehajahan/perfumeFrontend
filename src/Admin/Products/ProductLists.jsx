@@ -40,7 +40,7 @@ const ProductLists = () => {
                 transition={Bounce}
             />
             <div className="p-8">
-                <h2 className="text-4xl font-bold text-center text-gray-600 mb-6">Categoy List</h2>
+                <h2 className="text-4xl font-bold text-center text-gray-600 mb-6">Product List</h2>
 
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-sm text-left text-gray-700 shadow-md rounded-lg overflow-hidden">
@@ -49,16 +49,18 @@ const ProductLists = () => {
                                 <th className="px-6 py-4">Sr No</th>
                                 <th className="px-6 py-4">Product Name</th>
                                 <th className="px-6 py-4">Product Description</th>
+                                <th className="px-6 py-4">Product's Category</th>
                                 <th className="px-6 py-4">Update</th>
                                 <th className="px-6 py-4">Delete</th>
                             </tr>
                         </thead>
                         <tbody className="bg-white">
-                            {TABLE_ROWS.map(({ _id, name, description }, index) => (
+                            {TABLE_ROWS.map(({ _id, name, description, category }, index) => (
                                 <tr key={name} className="border-b">
                                     <td className="px-6 py-4">{index + 1}.</td>
                                     <td className="px-6 py-4">{name}</td>
                                     <td className="px-6 py-4">{description}</td>
+                                    <td className="px-6 py-4">{category}</td>
                                     <td className="px-6 py-4 text-blue-500 cursor-pointer">
                                         <Link
                                             to={`/updateProduct/${_id}`}

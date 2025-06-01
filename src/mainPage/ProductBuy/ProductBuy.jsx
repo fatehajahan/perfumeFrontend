@@ -18,7 +18,7 @@ const ProductBuy = () => {
     const navigate = useNavigate()
     const [products, setProducts] = useState([]);
     const location = useLocation()
-    const product = location.state?.product;
+    const product = location.state.product;
     console.log(product)
     const [selectedImage, setSelectedImage] = useState(product.images[0]);
 
@@ -37,7 +37,7 @@ const ProductBuy = () => {
     const bestSellers = products.slice(0, 4);
 
 
-    const images = [product1, product2, product3, product4];
+    const images = [product.images[0], product.images[1], product.images[2], product.images[3]];
 
 
     return (
@@ -45,6 +45,7 @@ const ProductBuy = () => {
             <div className="">
                 <div className="container">
                     <div className="md:py-[150px] py-[20px] md:flex items-center">
+                        {/* image work */}
                         <div className="px-4 md:w-1/2">
                             <div className="flex gap-6 items-center">
                                 {/* Thumbnail Images */}
@@ -52,10 +53,10 @@ const ProductBuy = () => {
                                     {images.map((img, index) => (
                                         <img
                                             key={index}
-                                            src={product.images[index] || img}
+                                            src={img}
                                             className={`md:w-[100px] md:h-[100px] w-[110px] object-cover border rounded-md cursor-pointer ${selectedImage == img ? "border-black" : "border-gray-300"
                                                 }`}
-                                            onClick={() => setSelectedImage(product.images[index] || img)}
+                                            onClick={() => setSelectedImage(img)}
                                         />
                                     ))}
                                 </div>
@@ -72,6 +73,7 @@ const ProductBuy = () => {
                         </div>
 
                         <div className="text-left md:w-1/2 flex flex-col gap-y-[15px] md:px-0 px-[20px]">
+                            {/* product name and description */}
                             <div className="flex items-center justify-between">
                                 <p className="font-cormot md:text-[30px] text-[25px]">{product.name}</p>
                                 <div className="flex gap-x-[20px] ">
@@ -82,9 +84,10 @@ const ProductBuy = () => {
                             </div>
                             <div className="flex flex-col gap-y-[15px]">
                                 <p className="text-[25px] text-[#5B5B5B] font-bold font-urbanist">${product.price} <span className="text-[15px] text-[#818181]">+Free Shipping</span></p>
-                                <p className="font-urbanist text-[15px] text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt ab fuga ea at quibusdam, temporibus soluta ipsum omnis eaque distinctio!</p>
+                                <p className="font-urbanist text-[15px] text-justify">{product.description}</p>
                             </div>
 
+                            {/* quantity selector */}
                             <div className="flex text-[15px] gap-x-[20px] items-center">
                                 <div className=" flex items-center">
                                     <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">-</p>
@@ -97,6 +100,7 @@ const ProductBuy = () => {
                                 </div>
                             </div>
 
+                            {/* payment */}
                             <div className="mx-auto mt-[15px] border w-full py-[20px] relative text-[#000]">
                                 <p className="absolute top-[-13px] md:left-[31%] left-[17%] px-[25px] font-urbanist bg-white">Guaranteed Safe Checkout</p>
                                 <div className="flex items-center justify-center gap-x-[35px] text-[55px] md:px-0 px-[20px]">
@@ -108,6 +112,7 @@ const ProductBuy = () => {
                                 </div>
                             </div>
 
+                            {/* guarantee */}
                             <div className="text-[#000]">
                                 <p className="text-[15px] flex items-center gap-x-[15px]">
                                     <FaCheckCircle />
