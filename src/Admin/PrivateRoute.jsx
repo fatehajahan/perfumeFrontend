@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 const PrivateRoute = ({ children }) => {
+  const url = import.meta.env.VITE_APP_URL
+  console.log(url)
+
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/v1/authentication/currentuser", { withCredentials: true })
+    axios.get(`${url}/authentication/currentuser`, { withCredentials: true })
       .then((res) => {
         setUser(res.data)
         setLoading(false)

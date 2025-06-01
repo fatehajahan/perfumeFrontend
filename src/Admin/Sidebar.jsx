@@ -4,13 +4,16 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Sidebar = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
+
     const [isOpen, setIsOpen] = useState(false);
     const demo = useContext(AuthContext)
     console.log(demo, 'sdsds')
 
     const [user, setUser] = useState("")
     useEffect(() => {
-        axios.get("http://localhost:3000/api/v1/authentication/currentuser", { withCredentials: true }).then((res) => {
+        axios.get(`${url}/authentication/currentuser`, { withCredentials: true }).then((res) => {
             setUser(res.data)
         })
     }, [])

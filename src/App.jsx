@@ -59,8 +59,6 @@ const router = createBrowserRouter(
       {/* Public/User Layout */}
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/bluePerfume" element={<BroughtPage />} /> */}
-        {/* <Route path="/orangePerfume" element={<BroughtPageOrange />} /> */}
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
@@ -90,7 +88,6 @@ const router = createBrowserRouter(
         <Route path="/updateProduct/:id" element={<ProductUpdate />} />
         <Route path="/createsubcategory" element={<CreateSubCategory />} />
         <Route path="/subCategoryList" element={<SubCategoryList />} />
-        {/* <Route path="/updatesubcategory/:id" element={<SubCategoryUpdate />} /> */}
         <Route path="/productList" element={<ProductLists />} />
         <Route path="/updateProduct/:id" element={<ProductLists />} />
         <Route path="/orderList" element={<Orders />} />
