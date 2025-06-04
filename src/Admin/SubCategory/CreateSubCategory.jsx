@@ -3,16 +3,20 @@ import { toast, ToastContainer, Bounce } from 'react-toastify'
 import React, { useEffect, useState } from 'react'
 
 const CreateSubCategory = () => {
+    const url = import.meta.env.VITE_APP_URL
     const [categoryies, setCategories] = useState([])
     const [subCategoryName, setSubCategoryName] = useState("")
     const [subCategoryDescription, setsubCategoryDescription] = useState("")
     const [category, setCategory] = useState("")
 
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_APP_URL}/category/getallcategory`)
-            .then((res) => setCategories(res.data.data))
-
+        axios.get(`${url}/category/getallcategory`)
+            .then((res) => {
+                console.log(res.data.data);
+                setCategories(res.data.data)
+            })
     }, [])
+    console.log(categoryies.map((cat) => cat._id))
 
     const handleCreateCategory = () => {
         console.log(subCategoryName)
@@ -25,9 +29,15 @@ const CreateSubCategory = () => {
             subCategoryDescription,
             category
         };
-        axios.post(`${import.meta.env.VITE_APP_URL}/subcategory/createsubcategory`, data)
-            .then((res) => toast.success("SubCategory Created Successfully"))
-            .catch((err) => toast.error("SubCategory Creation Failed"));
+        axios.post(`${url}/subcategory/createsubcategory`, data)
+            .then((res) => {
+                console.log(res)
+                toast.success("SubCategory Created Successfully")
+            })
+            .catch((err) => {
+                console.log(err)
+                toast.error("SubCategory Creation Failed")
+            });
     }
     return (
         <div>
@@ -47,11 +57,11 @@ const CreateSubCategory = () => {
             <div className='flex flex-col items-center justify-center'>
                 <h1 className='text-[50px]'>Create a New Sub Category</h1>
                 <div>
-                    {/* category name */}
+                    {/* subcategory name */}
                     <label htmlFor="subCategoryName">SubCategory's Name</label>
                     <input onChange={(e) => setSubCategoryName(e.target.value)} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px]' />
 
-                    {/* category Description */}
+                    {/* subcategory Description */}
                     <label htmlFor="subCategoryDescription">SubCategory's Description</label>
                     <textarea onChange={(e) => setsubCategoryDescription(e.target.value)} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px] ' />
 
@@ -65,9 +75,9 @@ const CreateSubCategory = () => {
                             className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring focus:border-blue-400"
                         >
                             <option value="">Select a category</option>
-                            {categoryies.map((cat, index) => (
-                                <option value={cat.categoryName} key={index}>
-                                    {cat.categoryName}
+                            {categoryies.map((cat) => (
+                                <option value={cat._id} key={cat._id}>
+                                    {cat._id}
                                 </option>
                             ))}
                         </select>

@@ -28,7 +28,7 @@ const Login = () => {
                 console.log("you've logged in")
                 setTimeout(() => {
                     navigate("/")
-                }, 5000)
+                }, 1500)
             }).catch((error) => {
                 toast.error("login failed")
                 console.log(error)

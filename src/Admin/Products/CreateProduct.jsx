@@ -125,7 +125,7 @@ const CreateProduct = () => {
                             <option value="">Select Category</option>
                             {
                                 categoryies.map((category) => (
-                                    <option key={category.categoryName} value={category.categoryName}>{category.categoryName}</option>
+                                    <option key={category._id} value={category._id}>{category._id}</option>
                                 ))
                             }
                         </select>
@@ -155,7 +155,7 @@ const CreateProduct = () => {
                             <option value="">Select Subcategory</option>
                             {
                                 subCategoryies.map((subcategory) => (
-                                    <option key={subcategory.subCategoryName} value={subcategory.subCategoryName}>{subcategory.subCategoryName}</option>
+                                    <option key={subcategory._id} value={subcategory._id}>{subcategory._id}</option>
                                 ))
                             }
                         </select>

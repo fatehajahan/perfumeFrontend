@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from "react";
-import product1 from '../../assets/broughtpageBlue/product1.jpg'
-import product2 from '../../assets/broughtpageBlue/product2.jpg'
-import product3 from '../../assets/broughtpageBlue/product3.jpg'
-import product4 from '../../assets/broughtpageBlue/product4.jpg'
 
 import { FaCcDiscover, FaCcPaypal, FaCircleArrowLeft, FaCircleArrowRight, FaStar } from "react-icons/fa6";
 import { FaCcMastercard, FaCcVisa, FaCheckCircle } from "react-icons/fa";

@@ -7,9 +7,21 @@ import axios from 'axios'
 
 const BuyPerfumes = () => {
     const url = import.meta.env.VITE_APP_URL
-    console.log(url)
+    // console.log(url)
+    // const { id } = useParams();
     const [products, setProducts] = useState([]);
+    const [getCategory, setGetCategory] = useState([])
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const cat = axios.get(`${url}/category/getallcategory`)
+            .then((res) => {
+                let arr = [...res.data.data]
+                setGetCategory(arr)
+            })
+    }, [])
+    console.log(getCategory)
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -52,7 +64,17 @@ const BuyPerfumes = () => {
                                         <img src={product.images[0]} alt="" className='w-[534px] md:w-auto' />
                                         <div className='pt-[15px]'>
                                             {/* category */}
-                                            <p className='text-[#9D9D9D] text-[15px]'>{product.category}</p>
+                                            {
+                                                (() => {
+                                                    const matchedCategory = getCategory.find(cat => cat._id === product.category);
+                                                    return matchedCategory ? (
+                                                        <p className='text-[#9D9D9D] text-[15px]'>{matchedCategory.categoryName}</p>
+                                                    ) : (
+                                                        <p className='text-[#9D9D9D] text-[15px]'>Unknown Category</p>
+                                                    );
+                                                })()
+                                            }
+
                                             {/* name */}
                                             <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
                                             <div className='flex gap-x-[10px]'>

@@ -29,6 +29,7 @@ import PrivateRoute from "./Admin/PrivateRoute";
 import BuyPerfumes from "./mainPage/BuyPerfumes/BuyPerfumes";
 import Orders from "./Admin/Order/Orders";
 import ProductBuy from "./mainPage/ProductBuy/ProductBuy";
+import Exclusive from "./mainPage/Exclusive/Exclusive";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -60,6 +61,7 @@ const router = createBrowserRouter(
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
+        <Route path="/buyExclusive" element={<Exclusive />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
         <Route path="/product/:id" element={<ProductBuy />} />
