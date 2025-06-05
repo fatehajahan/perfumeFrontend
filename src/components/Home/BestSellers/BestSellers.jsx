@@ -36,13 +36,18 @@ const BestSellers = () => {
                 <div className='grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4'>
                     {
                         bestSellers.map((product) => (
-                            <div key={product._id} className='md:my-0 my-[30px]'>
+                            <div key={product._id} className='md:my-0 my-[30px] relative'>
                                 <Link to={`/product/${product._id}`} className="product1 cursor-pointer">
+                                    {product.discount > 0 && (
+                                        <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
+                                            <p className='font-urbanist font-bold text-xs'>Sale!!</p>
+                                        </div>
+                                    )}
                                     <img src={product.images[0]} alt="" className='w-[534px] md:w-auto' />
                                     <div className='pt-[15px]'>
                                         <p className='text-[#9D9D9D] text-[15px]'>Exclusive</p>
                                         <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
-                                        <div className='flex gap-x-[10px]'>
+                                        <div className='flex gap-x-[10px] text-yellow-400'>
                                             <FaStar />
                                             <FaStar />
                                             <FaStar />

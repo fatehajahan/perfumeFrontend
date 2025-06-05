@@ -38,7 +38,7 @@ const Login = () => {
         <div className='md:flex items-center overflow-hidden h-screen bg-[linear-gradient(90deg,#AE8625,#F7EF8A,#D2AC47,#EDC967)]'>
             <ToastContainer
                 position="top-center"
-                autoClose={5000}
+                autoClose={1500}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}

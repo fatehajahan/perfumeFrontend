@@ -14,7 +14,7 @@ const Exclusive = () => {
         const fetchExclusiveProducts = async () => {
             try {
                 const response = await axios.get(`${url}/category/getallcategory`);
-                setProducts(response.data.data[2]);  // because your backend returns { data: [...] }
+                setProducts(response.data.data);  // because your backend returns { data: [...] }
                 console.log(response.data.data)
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -23,8 +23,9 @@ const Exclusive = () => {
 
         fetchExclusiveProducts();
     }, []);
-    const exclussiveProducts = products || []
-    console.log(exclussiveProducts)
+    // const exclussiveProducts = products || []
+    const exclusivePerfumes = [products[0]]
+    console.log(exclusivePerfumes)
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -37,50 +38,47 @@ const Exclusive = () => {
 
                 <div className='grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4'>
                     {
-                        // exclussiveProducts.map((product, index) => (
-                        //     // <div
-                        //     //     key={index}
-                        //     //     className="md:my-0 my-[30px] relative cursor-pointer"
-                        //     //     onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
-                        //     // >
-                        //     //     {product.discount > 0 && (
-                        //     //         <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
-                        //     //             <p className='font-urbanist font-bold text-xs'>Sale!!</p>
-                        //     //         </div>
-                        //     //     )}
-                        //     //     <div className='md:my-0 my-[30px]'>
-                        //     //         <div className="product1 cursor-pointer">
-                        //     //             {/* image below */}
-                        //     //             {/* <img src={product.images[0]} alt="" className='w-[534px] md:w-auto' /> */}
-                        //     //             <div className='pt-[15px]'>
-                        //     //                 {/* category */}
-                        //     //                 <p className='text-[#9D9D9D] text-[15px]'>{product.category}</p>
-                        //     //                 {/* name */}
-                        //     //                 <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
-                        //     //                 <div className='flex gap-x-[10px]'>
-                        //     //                     <FaStar />
-                        //     //                     <FaStar />
-                        //     //                     <FaStar />
-                        //     //                     <FaStar />
-                        //     //                     <FaStar />
-                        //     //                 </div>
-                        //     //                 {/* price */}
-                        //     //                 <p className='pt-[10px] text-[20px] font-urbanist font-bold'>
-                        //     //                     ${product.price}
-                        //     //                 </p>
-                        //     //             </div>
-                        //     //         </div>
-                        //     //     </div>
-                        //     // </div>
-                        //     console.log(product.images)
-                        // ))
-                    }
+                        exclusivePerfumes.map((product, index) => (
+                            <div
+                                key={index}
+                                className="md:my-0 my-[30px] relative cursor-pointer"
+                                onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
+                            >
+                                {product.discount > 0 && (
+                                    <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
+                                        <p className='font-urbanist font-bold text-xs'>Sale!!</p>
+                                    </div>
+                                )}
+                                <div className='md:my-0 my-[30px]'>
+                                    <div className="product1 cursor-pointer">
+                                        {/* image below */}
+                                        /{/* <img src={product.images[0]} alt="" className='w-[534px] md:w-auto' /> */}
+                                        <div className='pt-[15px]'>
+                                            {/* category */}
+                                            <p className='text-[#9D9D9D] text-[15px]'>{product.category}</p>
+                                            {/* name */}
+                                            <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
+                                            <div className='flex gap-x-[10px]'>
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
+                                            </div>
+                                            {/* price */}
+                                            <p className='pt-[10px] text-[20px] font-urbanist font-bold'>
+                                                ${product.price}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            //     console.log(product.images)
+                        ))}
+
                 </div>
             </div>
         </div>
-        // <div>
-        //     <p>exclusive</p>
-        // </div>
     )
 }
 

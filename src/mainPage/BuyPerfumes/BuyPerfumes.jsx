@@ -7,11 +7,22 @@ import axios from 'axios'
 
 const BuyPerfumes = () => {
     const url = import.meta.env.VITE_APP_URL
-    // console.log(url)
-    // const { id } = useParams();
-    const [products, setProducts] = useState([]);
+    console.log(url)
+
+    const [products, setProducts] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:3000/api/v1/product/getallproduct")
+                setProducts(response.data.data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
+    }, [])
+    console.log(products)
     const [getCategory, setGetCategory] = useState([])
-    const navigate = useNavigate()
 
     useEffect(() => {
         const cat = axios.get(`${url}/category/getallcategory`)
@@ -48,11 +59,7 @@ const BuyPerfumes = () => {
                 <div className='grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4'>
                     {
                         products.map((product) => (
-                            <div
-                                key={product._id}
-                                className="md:my-0 my-[30px] relative cursor-pointer"
-                                onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
-                            >
+                            <Link key={product._id} to={`/product/${product._id}`}>
                                 {product.discount > 0 && (
                                     <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
                                         <p className='font-urbanist font-bold text-xs'>Sale!!</p>
@@ -77,7 +84,7 @@ const BuyPerfumes = () => {
 
                                             {/* name */}
                                             <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
-                                            <div className='flex gap-x-[10px]'>
+                                            <div className='flex gap-x-[10px] text-yellow-400'>
                                                 <FaStar />
                                                 <FaStar />
                                                 <FaStar />
@@ -91,12 +98,13 @@ const BuyPerfumes = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     }
                 </div>
             </div>
         </div>
+        // <p>deee</p>
     )
 }
 

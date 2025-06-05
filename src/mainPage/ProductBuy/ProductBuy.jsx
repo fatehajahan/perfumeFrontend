@@ -1,175 +1,156 @@
 import React, { useEffect, useState } from "react";
-
-import { FaCcDiscover, FaCcPaypal, FaCircleArrowLeft, FaCircleArrowRight, FaStar } from "react-icons/fa6";
-import { FaCcMastercard, FaCcVisa, FaCheckCircle } from "react-icons/fa";
+import { FaCcDiscover, FaCcPaypal } from "react-icons/fa6";
+import { FaCcMastercard, FaCcVisa, FaCheckCircle, FaStar } from "react-icons/fa";
 import { SiAmericanexpress } from "react-icons/si";
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Footer from "../../components/Home/Footer/Footer";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
 
 const ProductBuy = () => {
-    const url = import.meta.env.VITE_APP_URL
-    console.log(url)
-    const navigate = useNavigate()
     const [products, setProducts] = useState([]);
-    const location = useLocation()
-    const product = location.state.product;
-    console.log(product)
-    const [selectedImage, setSelectedImage] = useState(product.images[0]);
+    const [selectedImage, setSelectedImage] = useState("");
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const getProducts = async () => {
+        const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${url}/product/getallproduct`);
-                setProducts(response.data.data);  // because your backend returns { data: [...] }
+                const response = await axios.get("http://localhost:3000/api/v1/product/getallproduct");
+                setProducts(response.data.data);
             } catch (error) {
-                console.error('Error fetching products:', error);
+                console.error(error);
             }
         };
-
-        getProducts();
+        fetchProducts();
     }, []);
+
+    const product = products.find((p) => p._id === id);
+
+    useEffect(() => {
+        if (product && product.images.length > 0) {
+            setSelectedImage(product.images[0]);
+        }
+    }, [product]);
+
+    if (!product) return <div className="text-center py-20">Loading...</div>;
+
     const bestSellers = products.slice(0, 4);
-
-
-    const images = [product.images[0], product.images[1], product.images[2], product.images[3]];
-
 
     return (
         <div>
-            <div className="">
-                <div className="container">
-                    <div className="md:py-[150px] py-[20px] md:flex items-center">
-                        {/* image work */}
-                        <div className="px-4 md:w-1/2">
-                            <div className="flex gap-6 items-center">
-                                {/* Thumbnail Images */}
-                                <div className="flex flex-col gap-4">
-                                    {images.map((img, index) => (
-                                        <img
-                                            key={index}
-                                            src={img}
-                                            className={`md:w-[100px] md:h-[100px] w-[110px] object-cover border rounded-md cursor-pointer ${selectedImage == img ? "border-black" : "border-gray-300"
-                                                }`}
-                                            onClick={() => setSelectedImage(img)}
-                                        />
-                                    ))}
-                                </div>
-
-                                {/* Main Image Display */}
-                                <div className="relative">
-                                    <img
-                                        src={selectedImage}
-                                        alt="Selected Product"
-                                        className="w-[450px] h-[450px] object-contain"
-                                    />
-                                </div>
-                            </div>
+            <div className="container">
+                <div className="md:py-[150px] py-[20px] md:flex gap-6">
+                    {/* Image Section */}
+                    <div className="px-4 md:w-1/2 flex gap-6">
+                        {/* Thumbnails */}
+                        <div className="flex flex-col gap-4">
+                            {product.images.map((img, i) => (
+                                <img
+                                    key={i}
+                                    src={img}
+                                    alt={`Product ${i}`}
+                                    className={`w-[100px] h-[100px] object-cover border rounded cursor-pointer ${selectedImage === img ? "border-black" : "border-gray-300"}`}
+                                    onClick={() => setSelectedImage(img)}
+                                />
+                            ))}
                         </div>
 
-                        <div className="text-left md:w-1/2 flex flex-col gap-y-[15px] md:px-0 px-[20px]">
-                            {/* product name and description */}
-                            <div className="flex items-center justify-between">
-                                <p className="font-cormot md:text-[30px] text-[25px]">{product.name}</p>
-                                <div className="flex gap-x-[20px] ">
-                                    <FaCircleArrowLeft className="text-[25px] cursor-pointer hover:text-[#878787] transition duration-300" />
-                                    <FaCircleArrowRight className="text-[25px] cursor-pointer hover:text-[#878787] transition duration-300" />
-                                </div>
-
-                            </div>
-                            <div className="flex flex-col gap-y-[15px]">
-                                <p className="text-[25px] text-[#5B5B5B] font-bold font-urbanist">${product.price} <span className="text-[15px] text-[#818181]">+Free Shipping</span></p>
-                                <p className="font-urbanist text-[15px] text-justify">{product.description}</p>
-                            </div>
-
-                            {/* quantity selector */}
-                            <div className="flex text-[15px] gap-x-[20px] items-center">
-                                <div className=" flex items-center">
-                                    <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">-</p>
-                                    <p className="border px-[15px]">1</p>
-                                    <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">+</p>
-                                </div>
-
-                                <div className="w-[400px] bg-black text-white text-center py-[4px] cursor-pointer hover:bg-transparent hover:text-black font-bold transition duration-500">
-                                    <p>Add to Cart</p>
-                                </div>
-                            </div>
-
-                            {/* payment */}
-                            <div className="mx-auto mt-[15px] border w-full py-[20px] relative text-[#000]">
-                                <p className="absolute top-[-13px] md:left-[31%] left-[17%] px-[25px] font-urbanist bg-white">Guaranteed Safe Checkout</p>
-                                <div className="flex items-center justify-center gap-x-[35px] text-[55px] md:px-0 px-[20px]">
-                                    <FaCcVisa />
-                                    <FaCcMastercard />
-                                    <SiAmericanexpress />
-                                    <FaCcDiscover />
-                                    <FaCcPaypal />
-                                </div>
-                            </div>
-
-                            {/* guarantee */}
-                            <div className="text-[#000]">
-                                <p className="text-[15px] flex items-center gap-x-[15px]">
-                                    <FaCheckCircle />
-                                    No-Risk Money Back Guarantee!
-                                </p>
-
-                                <p className="text-[15px] flex items-center gap-x-[15px]">
-                                    <FaCheckCircle />
-                                    No Hassle Refunds
-                                </p>
-
-                                <p className="text-[15px] flex items-center gap-x-[15px]">
-                                    <FaCheckCircle />
-                                    Secure Payments
-                                </p>
-                            </div>
+                        {/* Main Image */}
+                        <div>
+                            <img
+                                src={selectedImage}
+                                alt="Selected Product"
+                                className="w-[450px] h-[450px] object-contain"
+                            />
                         </div>
                     </div>
 
-                    {/* review form */}
-                    <div className='md:px-0 px-[20px]'>
-                        <ReviewForm />
-                    </div>
+                    {/* Product Info */}
+                    <div className="text-left md:w-1/2 flex flex-col gap-y-4 md:px-0 px-4">
+                        <p className="font-cormot text-[30px]">{product.name}</p>
+                        <p className="text-[25px] text-[#5B5B5B] font-bold font-urbanist">
+                            ${product.price} <span className="text-[15px] text-[#818181]">+Free Shipping</span>
+                        </p>
+                        <p className="font-urbanist text-[15px] text-justify">{product.description}</p>
 
-                    {/* related products */}
-                    <div className="md:px-0 px-[20px] py-[50px]">
-                        <h2 className="font-cormot text-[35px] py-[20px]">Related Products</h2>
-                        <div className="grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4">
-                            {
-                                bestSellers.map((product, index) => (
-                                    <div
-                                        key={product._id}
-                                        className="md:my-0 my-[30px] relative cursor-pointer"
-                                        onClick={() => navigate(`/product/${product._id}`, { state: { product } })}
-                                    >
-                                        {product.discount > 0 && (
-                                            <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
-                                                <p className='font-urbanist font-bold text-xs'>Sale!!</p>
-                                            </div>
-                                        )}
-                                        <div className="product1 cursor-pointer">
-                                            <img src={product.images[0]} alt="" className="" />
-                                            <div className='pt-[15px]'>
-                                                <p className='text-[#9D9D9D] text-[15px]'>{product.category}</p>
-                                                <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
-                                                <div className='flex gap-x-[10px]'>
-                                                    <FaStar />
-                                                    <FaStar />
-                                                    <FaStar />
-                                                    <FaStar />
-                                                    <FaStar />
-                                                </div>
-                                                <p className='pt-[10px] text-[20px] font-urbanist font-bold'>
-                                                    ${product.price}
-                                                </p>
+                        {/* Quantity & Cart */}
+                        <div className="flex text-[15px] gap-x-4 items-center">
+                            <div className="flex items-center">
+                                <p className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">-</p>
+                                <p className="border px-4">1</p>
+                                <p className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
+                            </div>
+                            <div className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
+                                Add to Cart
+                            </div>
+                        </div>
+
+                        {/* Payment */}
+                        <div className="mx-auto mt-4 border w-full py-4 relative text-[#000]">
+                            <p className="absolute top-[-13px] left-1/2 transform -translate-x-1/2 px-6 font-urbanist bg-white">
+                                Guaranteed Safe Checkout
+                            </p>
+                            <div className="flex items-center justify-center gap-x-8 text-[35px]">
+                                <FaCcVisa />
+                                <FaCcMastercard />
+                                <SiAmericanexpress />
+                                <FaCcDiscover />
+                                <FaCcPaypal />
+                            </div>
+                        </div>
+
+                        {/* Guarantee */}
+                        <div className="text-[#000] mt-4 space-y-2">
+                            <p className="text-[15px] flex items-center gap-x-2">
+                                <FaCheckCircle /> No-Risk Money Back Guarantee!
+                            </p>
+                            <p className="text-[15px] flex items-center gap-x-2">
+                                <FaCheckCircle /> No Hassle Refunds
+                            </p>
+                            <p className="text-[15px] flex items-center gap-x-2">
+                                <FaCheckCircle /> Secure Payments
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Review Form */}
+                <div className="px-4 md:px-0">
+                    <ReviewForm />
+                </div>
+
+                {/* Related Products */}
+                <div className="px-4 md:px-0 py-12">
+                    <h2 className="font-cormot text-[35px] py-4">Related Products</h2>
+                    <div className="grid md:grid-cols-4 gap-6 mx-auto max-w-[1320px]">
+                        {bestSellers.map((prod) => (
+                            <Link key={prod._id} to={`/product/${prod._id}`}
+                            >
+                                {prod.discount > 0 && (
+                                    <div className="absolute top-2 left-2 bg-yellow-400 py-1 w-[60px] text-center rounded">
+                                        <p className="font-urbanist font-bold text-xs">Sale!!</p>
+                                    </div>
+                                )}
+                                <div>
+                                    <img src={prod.images[0]} alt="" className="w-full h-[200px] object-cover" />
+                                    <div className="pt-2">
+                                        <p className="text-[#9D9D9D] text-[15px]">{prod.category}</p>
+                                        <p className="font-cormot text-black text-[20px] font-semibold">{prod.name}</p>
+                                        <div className="flex gap-x-1 text-yellow-400">
+                                            <div className='flex gap-x-[10px]'>
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
+                                                <FaStar />
                                             </div>
                                         </div>
+                                        <p className="pt-2 text-[18px] font-urbanist font-bold">${prod.price}</p>
                                     </div>
-                                ))
-                            }
-                        </div>
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </div>
