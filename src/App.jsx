@@ -30,6 +30,9 @@ import BuyPerfumes from "./mainPage/BuyPerfumes/BuyPerfumes";
 import Orders from "./Admin/Order/Orders";
 import ProductBuy from "./mainPage/ProductBuy/ProductBuy";
 import Exclusive from "./mainPage/Exclusive/Exclusive";
+import Footer from "./components/Home/Footer/Footer";
+import Women from "./mainPage/Women/Women";
+import Men from "./mainPage/Men/Men";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -40,6 +43,7 @@ const Layout = () => {
       <Navbar setCartOpen={setCartOpen} />
       <AddCart cartOpen={cartOpen} setCartOpen={setCartOpen} />
       <Outlet />
+      <Footer />
       {cartOpen && (
         <div
           className="fixed inset-0 bg-[#00000049]"
@@ -62,6 +66,8 @@ const router = createBrowserRouter(
         <Route path="/" element={<Home />} />
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/buyExclusive" element={<Exclusive />} />
+        <Route path="/womenPerfumes" element={<Women />} />
+        <Route path="/menPerfumes" element={<Men />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
         <Route path="/product/:id" element={<ProductBuy />} />
@@ -94,7 +100,7 @@ const router = createBrowserRouter(
         <Route path="/updateProduct/:id" element={<ProductLists />} />
         <Route path="/orderList" element={<Orders />} />
       </Route>
-      
+
     </Route>
   )
 );
