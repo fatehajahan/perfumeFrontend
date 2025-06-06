@@ -8,6 +8,8 @@ import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
 
 const ProductBuy = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [products, setProducts] = useState([]);
     const [selectedImage, setSelectedImage] = useState("");
     const { id } = useParams();
@@ -16,7 +18,7 @@ const ProductBuy = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/api/v1/product/getallproduct");
+                const response = await axios.get(`${url}/product/getallproduct`);
                 setProducts(response.data.data);
             } catch (error) {
                 console.error(error);
