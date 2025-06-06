@@ -60,8 +60,8 @@ const Navbar = ({ setCartOpen }) => {
           <div className="leftNavitems md:flex items-center gap-x-[20px] font-urbanist text-[13px] cursor-pointer">
             <Link to="/buyPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>BUY PERFUMES</p></Link>
             <Link to="/buyExclusive"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>EXCLUSIVE</p></Link>
-            <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>WOMEN</p>
-            <p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>MEN</p>
+            <Link to="/womenPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>WOMEN</p></Link>
+            <Link to="/menPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>MEN</p></Link>
           </div>
 
           {/* Logo */}
