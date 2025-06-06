@@ -47,11 +47,11 @@ const ProductBuy = () => {
                     <div className="px-4 md:w-1/2 flex gap-6">
                         {/* Thumbnails */}
                         <div className="flex flex-col gap-4">
-                            {product.images.map((img, i) => (
+                            {product.images.map((img, index) => (
                                 <img
-                                    key={i}
-                                    src={img}
-                                    alt={`Product ${i}`}
+                                    key={index}
+                                    src={img[0]}
+                                    alt={`Product ${index}`}
                                     className={`w-[100px] h-[100px] object-cover border rounded cursor-pointer ${selectedImage === img ? "border-black" : "border-gray-300"}`}
                                     onClick={() => setSelectedImage(img)}
                                 />
@@ -61,7 +61,7 @@ const ProductBuy = () => {
                         {/* Main Image */}
                         <div>
                             <img
-                                src={selectedImage}
+                                src={product.images[0]}
                                 alt="Selected Product"
                                 className="w-[450px] h-[450px] object-contain"
                             />
@@ -135,7 +135,7 @@ const ProductBuy = () => {
                                     </div>
                                 )}
                                 <div>
-                                    <img src={prod.images[0]} alt="" className="w-full h-[200px] object-cover" />
+                                    <img src={prod.images[0]} alt="" className="w-full object-cover" />
                                     <div className="pt-2">
                                         <p className="text-[#9D9D9D] text-[15px]">{prod.category}</p>
                                         <p className="font-cormot text-black text-[20px] font-semibold">{prod.name}</p>
