@@ -50,7 +50,7 @@ const ProductBuy = () => {
                             {product.images.map((img, index) => (
                                 <img
                                     key={index}
-                                    src={img[0]}
+                                    src={img}
                                     alt={`Product ${index}`}
                                     className={`w-[100px] h-[100px] object-cover border rounded cursor-pointer ${selectedImage === img ? "border-black" : "border-gray-300"}`}
                                     onClick={() => setSelectedImage(img)}
