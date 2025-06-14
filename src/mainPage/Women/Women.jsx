@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import noImg from '../../assets/noImg.jpg';
 import { FaStar } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Women = () => {
@@ -45,11 +45,7 @@ const Women = () => {
                 <div className='grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4'>
                     {exclusiveProducts.length > 0 ? (
                         exclusiveProducts.map((product) => (
-                            <div
-                                key={product._id}
-                                className='relative cursor-pointer'
-                                onClick={() => navigate(`/product/${product._id}`)}
-                            >
+                            <Link key={product._id} to={`/product/${product._id}`} className='relative'>
                                 {product.discount > 0 && (
                                     <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
                                         <p className='font-urbanist font-bold text-xs'>Sale!!</p>
@@ -64,6 +60,10 @@ const Women = () => {
                                             className='w-full h-[200px] object-cover'
                                         />
                                         <div className='pt-[15px]'>
+                                            {/* category */}
+                                            <p className='text-[#9D9D9D] text-[15px]'>
+                                                {getCategory.find(cat => cat._id === product.category)?.categoryName || 'Unknown Category'}
+                                            </p>
                                             {/* Name */}
                                             <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
                                             {/* Stars */}
@@ -77,7 +77,7 @@ const Women = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))
                     ) : (
                         <p className='col-span-4 text-center py-10'>No exclusive products available.</p>

@@ -7,7 +7,6 @@ import axios from 'axios';
 const Exclusive = () => {
     const url = import.meta.env.VITE_APP_URL;
     const [exclusiveProducts, setExclusiveProducts] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchExclusiveProducts = async () => {
@@ -43,6 +42,16 @@ const Exclusive = () => {
     }, [])
     console.log(cat)
 
+    const [getCategory, setGetCategory] = useState([])
+    useEffect(() => {
+        axios.get(`${url}/category/getallcategory`)
+            .then((res) => {
+                let arr = [...res.data.data]
+                setGetCategory(arr)
+            })
+    }, [])
+    console.log(getCategory)
+
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -56,7 +65,7 @@ const Exclusive = () => {
                 <div className='grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4'>
                     {exclusiveProducts.length > 0 ? (
                         exclusiveProducts.map((product) => (
-                            <Link key={product._id} to={`/product/${product._id}`}>
+                            <Link key={product._id} to={`/product/${product._id}`} className='relative'>
                                 {product.discount > 0 && (
                                     <div className='absolute top-[10px] left-[10px] bg-yellow-400 py-[5px] w-[60px] text-center rounded'>
                                         <p className='font-urbanist font-bold text-xs'>Sale!!</p>
@@ -70,7 +79,12 @@ const Exclusive = () => {
                                             alt={product.name}
                                             className='w-full object-cover'
                                         />
+
                                         <div className='pt-[15px]'>
+                                            {/* category */}
+                                            <p className='text-[#9D9D9D] text-[15px]'>
+                                                {getCategory.find(cat => cat._id === product.category)?.categoryName || 'Unknown Category'}
+                                            </p>
                                             {/* Name */}
                                             <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
                                             {/* Stars */}

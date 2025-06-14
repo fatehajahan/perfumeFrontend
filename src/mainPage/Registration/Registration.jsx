@@ -20,6 +20,9 @@ const Registration = () => {
         })
     }
     const handleSubmit = () => {
+        if(!userData.email || !userData.firstName || !userData.lastName || !userData.password){
+           return toast.error("please give your informations")
+        }
         console.log(userData, "userdata")
         axios.post(`${url}/authentication/registration`, userData)
             .then((res) => {

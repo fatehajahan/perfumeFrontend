@@ -61,7 +61,7 @@ const ProductBuy = () => {
                         {/* Main Image */}
                         <div>
                             <img
-                                src={product.images[0]}
+                                src={selectedImage}
                                 alt="Selected Product"
                                 className="w-[450px] h-[450px] object-contain"
                             />

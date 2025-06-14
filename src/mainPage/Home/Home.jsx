@@ -17,7 +17,6 @@ const Home = () => {
       <Discovery />
       <ShopNow />
       <Catagory/>
-      <Footer/>
     </>
   )
 }
