@@ -7,7 +7,6 @@ import axios from 'axios'
 
 const BuyPerfumes = () => {
     const url = import.meta.env.VITE_APP_URL
-    console.log(url)
 
     const [products, setProducts] = useState([])
 
@@ -20,25 +19,35 @@ const BuyPerfumes = () => {
                 setGetCategory(arr)
             })
     }, [])
-    console.log(getCategory)
 
     // for all products
+    const [currentPage, setCurrentPage] = useState(1)
+    const [productPerPage, setProductPerPage] = useState(2)
+    const [count, setCount] = useState(0)
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${url}/product/getallproduct`);
+                const response = await axios.get(`http://localhost:3000/api/v1/product/getallproduct?page=${currentPage}&size=${productPerPage}`);
+                // http://localhost:3000/api/v1/product/getallproduct?page=3&size=2
+
+                // const response = await axios.get(`${url}/product/getallproduct`);
                 setProducts(response.data.data);
+                setCount(response.data.totalProducts)
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
         };
 
         fetchProducts();
-    }, []);
+    }, [currentPage, productPerPage]);
     console.log(products)
 
-    // 
-    // const pageArr = [1, 2, 3, 4]
+    // pagination
+    const pageArr = [...Array(Math.ceil(count / productPerPage)).keys()].map((btn) => btn + 1)
+    const handlePageChange = (value) => {
+        setCurrentPage(value)
+    }
+    console.log(pageArr.length)
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -92,17 +101,26 @@ const BuyPerfumes = () => {
                 </div>
 
                 {/* buttons */}
-                {/* <div className=' flex justify-end pt-[50px]'>
+                <div className=' flex justify-end pt-[50px]'>
                     <div className='flex items-center space-x-2'>
-                        <p className='bg-gray-600 py-[4.2px] px-[5px] rounded-xl text-white font-bold cursor-pointer'>Prev</p>
+                        <button
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)} className={`${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "bg-gray-600 py-[4.2px] px-[5px] rounded-xl text-white font-semibold cursor-pointer"} `}>Prev</button>
                         {
                             pageArr.map((btn) => (
-                                <p>{btn}</p>
+                                <button
+                                    key={btn}
+                                    onClick={() => currentPage == btn ? "bg-transparent" : setCurrentPage(btn)}
+                                    className={`cursor-pointer ${currentPage === btn && "bg-gray-500 py-[4.2px] px-[5px] rounded-xl text-white font-semibold"}`}>{btn}
+                                </button>
                             ))
                         }
-                        <p className='bg-gray-600 py-[4.2px] px-[5px] rounded-xl text-white font-bold cursor-pointer'>Next</p>
+                        <button
+                            disabled={currentPage === pageArr.length}
+                            onClick={() => handlePageChange(currentPage + 1)} className={`${currentPage === pageArr.length ? "opacity-50 cursor-not-allowed" : "bg-gray-600 py-[4.2px] px-[5px] rounded-xl text-white font-semibold cursor-pointer"} `}>Next
+                        </button>
                     </div>
-                </div> */}
+                </div>
             </div>
         </div>
     )
