@@ -33,6 +33,7 @@ import Exclusive from "./mainPage/Exclusive/Exclusive";
 import Footer from "./components/Home/Footer/Footer";
 import Women from "./mainPage/Women/Women";
 import Men from "./mainPage/Men/Men";
+import Payment from "./mainPage/Payment/Payment";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -70,6 +71,7 @@ const router = createBrowserRouter(
         <Route path="/menPerfumes" element={<Men />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/mycart" element={<ViewCart />} />
+        <Route path="/payment" element={<Payment />} />
         <Route path="/product/:id" element={<ProductBuy />} />
       </Route>
 
