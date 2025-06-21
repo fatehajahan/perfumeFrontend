@@ -1,15 +1,16 @@
 import React from 'react'
 import productImg from '../../assets/broughtpageBlue/product1.jpg'
+import { Link } from 'react-router-dom'
 
 const ViewCart = () => {
 
     return (
         <div className="container mx-auto py-[150px] px-4">
-            <h1 className="text-4xl font-serif text-center mb-8">Cart</h1>
+            <h1 className="text-[65px] font-serif text-center mb-8">Cart</h1>
 
             <div className="flex flex-col md:flex-row gap-8">
 
-                
+
                 <div className="w-full md:w-2/3 border border-gray-300">
 
                     <table className="w-full text-left hidden md:table">
@@ -41,7 +42,7 @@ const ViewCart = () => {
                         </tbody>
                     </table>
 
-                    
+
                     <div className="md:hidden border-t border-gray-300">
                         <div className="border-b p-4">
                             <div className="flex justify-between items-start mb-4">
@@ -78,7 +79,7 @@ const ViewCart = () => {
                     </div>
                 </div>
 
-                
+
                 <div className="w-full  md:w-1/3 border border-gray-300 p-6">
                     <h2 className="text-lg font-semibold mb-4">Cart totals</h2>
                     <div className="flex justify-between border-b py-2">
@@ -90,9 +91,11 @@ const ViewCart = () => {
                         <span>$425.00</span>
                     </div>
                     <p className="mt-4 text-sm cursor-pointer">Have a coupon?</p>
-                    <button className="mt-4 bg-black hover:bg-transparent hover:text-black transition duration-500 text-white px-6 py-3 w-full text-center uppercase font-semibold cursor-pointer">
-                        Checkout
-                    </button>
+                    <Link to="/payment">
+                        <button className="mt-4 bg-black hover:bg-transparent hover:text-black transition duration-500 text-white px-6 py-3 w-full text-center uppercase font-semibold cursor-pointer">
+                            Checkout
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

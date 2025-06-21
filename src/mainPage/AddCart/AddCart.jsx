@@ -39,11 +39,12 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
 
                 <div className="flex flex-col gap-y-[20px]">
                     <div className="bg-black w-full text-white text-center py-[5px] cursor-pointer hover:bg-transparent hover:text-black transition duration-500">
-                        <Link to="/mycart" className="font-urbanist font-bold text-[15px]" onClick={() => setCartOpen(false)}>VIEW CART</Link>
+                        <Link
+                         onClick={() => setCartOpen(false)} to="/mycart" className="font-urbanist font-bold text-[15px]" >VIEW CART</Link>
                     </div>
 
                     <div className="bg-black w-full text-white text-center py-[5px] cursor-pointer hover:bg-transparent hover:text-black transition duration-500">
-                        <p className="font-urbanist font-bold text-[15px]">CHECKOUT</p>
+                        <Link onClick={() => setCartOpen(false)} to="/payment" className="font-urbanist font-bold text-[15px]">CHECKOUT</Link>
                     </div>
                 </div>
             </div>
