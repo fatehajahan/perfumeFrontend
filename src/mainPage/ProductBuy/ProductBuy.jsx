@@ -6,10 +6,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Footer from "../../components/Home/Footer/Footer";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { cartTotal } from "../../slices/cartSlice";
 
 const ProductBuy = () => {
     const url = import.meta.env.VITE_APP_URL
-    console.log(url)
+    // console.log(url)
+    const dispatch = useDispatch()
     const [products, setProducts] = useState([]);
     const [selectedImage, setSelectedImage] = useState("");
     const { id } = useParams();
@@ -37,8 +40,14 @@ const ProductBuy = () => {
 
     if (!product) return <div className="text-center py-20">Loading...</div>;
 
-    const bestSellers = products.slice(0, 4);
+    // to show related products
+    const relatedProducts = products.slice(0, 4);
 
+
+    // function to add product to cart
+    const handleAddToCart = async (product) =>{
+        dispatch(cartTotal(product))
+    }
     return (
         <div>
             <div className="container">
@@ -83,7 +92,7 @@ const ProductBuy = () => {
                                 <p className="border px-4">1</p>
                                 <p className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
                             </div>
-                            <div className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
+                            <div onClick={()=>handleAddToCart(product)} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
                                 Add to Cart
                             </div>
                         </div>
@@ -126,7 +135,7 @@ const ProductBuy = () => {
                 <div className="px-4 md:px-0 py-12">
                     <h2 className="font-cormot text-[35px] py-4">Related Products</h2>
                     <div className="grid md:grid-cols-4 gap-6 mx-auto max-w-[1320px]">
-                        {bestSellers.map((prod) => (
+                        {relatedProducts.map((prod) => (
                             <Link key={prod._id} to={`/product/${prod._id}`}
                             >
                                 {prod.discount > 0 && (

@@ -27,10 +27,10 @@ const BuyPerfumes = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/product/getallproduct?page=${currentPage}&size=${productPerPage}`);
+                // const response = await axios.get(`http://localhost:3000/api/v1/product/getallproduct?page=${currentPage}&size=${productPerPage}`);
                 // http://localhost:3000/api/v1/product/getallproduct?page=3&size=2
 
-                // const response = await axios.get(`${url}/product/getallproduct`);
+                const response = await axios.get(`${url}/product/getallproduct?page=${currentPage}&size=${productPerPage}`);
                 setProducts(response.data.data);
                 setCount(response.data.totalProducts)
             } catch (error) {

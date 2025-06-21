@@ -4,8 +4,12 @@ import { FaCartArrowDown } from 'react-icons/fa';
 import { FaCircleUser } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { IoIosMenu } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const Navbar = ({ setCartOpen }) => {
+  const data = useSelector((state) => state.cartDetails.cartItems)
+  console.log(data)
+
   const [dropdown, setDropdown] = useState(false);
   const [profile, setProfile] = useState(false);
 
@@ -29,10 +33,10 @@ const Navbar = ({ setCartOpen }) => {
           <Link to="/">
             <div className="middleLogo">
               <img src={logo} alt="" className='cursor-pointer w-[85px] md:hidden block ' onClick={() => {
-              setCartOpen(false);
-              setDropdown(false);
-              setProfile(false);
-            }}/>
+                setCartOpen(false);
+                setDropdown(false);
+                setProfile(false);
+              }} />
             </div>
           </Link>
 
@@ -78,11 +82,18 @@ const Navbar = ({ setCartOpen }) => {
               <Link to="/contact" className='md:px-0 px-[15px] ' onClick={() => setDropdown(false)}>CONTACT</Link>
             </div>
             <div className='md:flex items-center text-[25px] gap-x-[20px] cursor-pointer hidden relative'>
-              <FaCartArrowDown className='hover:text-[#6a6a6a] transition duration-300' onClick={() => {
-                setCartOpen(true);
-                setDropdown(false);
-                setProfile(false);
-              }} />
+              <div className='relative'>
+                <FaCartArrowDown className='hover:text-[#6a6a6a] transition duration-300' onClick={() => {
+                  setCartOpen(true);
+                  setDropdown(false);
+                  setProfile(false);
+                }} />
+
+                {
+                  data.length > 0 && <div className='bg-red-700 rounded-full w-[10px] h-[10px] absolute top-[-3px] right-[-4px]'></div>
+                }
+
+              </div>
               <FaCircleUser className='hover:text-[#6a6a6a] transition duration-300' onClick={() => toggleMenu("profile")} />
 
               {profile && (
