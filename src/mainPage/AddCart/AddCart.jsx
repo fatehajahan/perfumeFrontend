@@ -18,15 +18,17 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                     {
                         data.length > 0 ?
                             data.map((product) => (
-                                <div key={product._id} className="flex gap-x-[20px]">
-                                    <img src={product.images[0]} alt="" className="w-[60px] h-[60px]" />
+                                <div key={product._id} className="py-[10px]">
+                                    <div className="flex gap-x-[20px]">
+                                        <img src={product.images[0]} alt="" className="w-[60px] h-[60px]" />
 
-                                    <div>
-                                        <p>{product.name}</p>
-                                        <div className="flex text-[15px]">
-                                            <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">-</p>
-                                            <p className="border px-[15px]">{product.quantity}</p>
-                                            <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">+</p>
+                                        <div>
+                                            <p>{product.name}</p>
+                                            <div className="flex text-[15px]">
+                                                <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">-</p>
+                                                <p className="border px-[15px]">{product.quantity}</p>
+                                                <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">+</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -34,10 +36,6 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                                 <p>No items in cart.</p>
                             </div>
                     }
-
-                    <div className="pt-[30px]">
-                        <p>No items in cart.</p>
-                    </div>
                 </div>
             </div>
 

@@ -40,7 +40,7 @@ export const cartSlice = createSlice({
         },
         removeItem: (state, action) => {
             const index = action.payload
-            state.cartItems.splice(index, 1); // remove 1 item at the given index
+            state.cartItems.splice(index, 1); 
             localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         }
     },

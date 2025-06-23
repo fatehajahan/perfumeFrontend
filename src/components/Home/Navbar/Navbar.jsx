@@ -25,15 +25,6 @@ const Navbar = ({ setCartOpen }) => {
     }
   };
 
-  const DropdownItem = ({ icon, label, shortcut }) => (
-    <div className='flex items-center justify-between hover:bg-[#3a3b3c] px-3 py-2 rounded cursor-pointer'>
-      <div className='flex items-center gap-3'>
-        {icon}
-        <p>{label}</p>
-      </div>
-      {shortcut && <span className='text-sm text-gray-400'>{shortcut}</span>}
-    </div>
-  );
   return (
     <div className='py-[20px] fixed bg-white top-0 left-0 w-full z-50'>
       <div className="container">
@@ -101,7 +92,7 @@ const Navbar = ({ setCartOpen }) => {
                 }} />
 
                 {
-                  data.length > 0 && <div className='bg-red-700 rounded-full w-[10px] h-[10px] absolute top-[-3px] right-[-4px]'></div>
+                  data.length > 0 && <div className='bg-red-500 rounded-full w-[10px] h-[10px] absolute top-[-3px] right-[-4px]'></div>
                 }
 
               </div>
@@ -143,7 +134,6 @@ const Navbar = ({ setCartOpen }) => {
                   )}
                 </div>
               )}
-
             </div>
           </div>
         </div>

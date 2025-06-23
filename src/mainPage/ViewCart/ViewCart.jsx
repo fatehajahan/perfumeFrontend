@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import productImg from '../../assets/broughtpageBlue/product1.jpg'
 import { Link } from 'react-router-dom'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { quantityDecreament, quantityUpdate, removeItem } from '../../slices/cartSlice'
 
 const ViewCart = () => {
+    const [coupon, setCoupon] = useState("")
+    const [discount, setDiscount] = useState(0)
     const data = useSelector((state) => state.cartDetails.cartItems)
     const dispatch = useDispatch()
 
@@ -16,21 +19,47 @@ const ViewCart = () => {
     const handleDecreament = (index) => {
         console.log('first', index)
         dispatch(quantityDecreament({ index: index, type: "decreament" }))
-        // if (data[index].quantity === 1) {
-
-        // }
     }
 
     const handleRemove = (index) => {
         dispatch(removeItem(index))
     }
+
+    // payment 
+    const totalPrice = data.reduce((acc, items) => {
+        return acc + items.price * items.quantity
+    }, 0);
+
+    const handleAddCoupon = () => {
+        console.log(coupon)
+        if (coupon === "PAND10") {
+            setDiscount(totalPrice * 0.1);
+        } else if (coupon === "PANDA20") {
+            setDiscount(totalPrice * 0.2);
+        } else {
+            setCoupon("")
+            toast.error("Invalid coupon code")
+        }
+    }
+
     return (
         <div className="container mx-auto py-[150px] px-4">
+            <ToastContainer
+                position="top-right"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
             <h1 className="text-[65px] font-serif text-center mb-8">Cart</h1>
 
             <div className="flex flex-col md:flex-row gap-8">
-
-
                 <div className="w-full md:w-2/3 border border-gray-300">
 
                     <table className="w-full text-left hidden md:table">
@@ -133,7 +162,6 @@ const ViewCart = () => {
                             <td colSpan="4" className="md:hidden p-4 text-center">No items in cart</td>
                         </div>
                     }
-
                 </div>
 
 
@@ -141,16 +169,23 @@ const ViewCart = () => {
                 <div className="w-full  md:w-1/3 border border-gray-300 p-6">
                     <h2 className="text-lg font-semibold mb-4">Cart totals</h2>
                     <div className="flex justify-between border-b py-2">
-                        <span>Subtotal:</span>
-                        <span>$425.00</span>
+                        <span>Total:</span>
+                        <span>${totalPrice}</span>
+                    </div>
+                    <div className="flex justify-between border-b py-2">
+                        <span>Discount:</span>
+                        <span>${discount}</span>
                     </div>
                     <div className="flex justify-between border-b py-2 font-bold">
-                        <span>Total:</span>
-                        <span>$425.00</span>
+                        <span>Subtotal:</span>
+                        <span>${totalPrice - discount}</span>
                     </div>
                     <div>
                         <p className="mt-4 text-sm cursor-pointer">Have a coupon?</p>
-                        <input type="text" className='border py-2 px-[20px] w-full bg-gray-200 rounded-xl' placeholder='Enter coupon code' />
+                        <div className="flex gap-2 w-full">
+                            <input value={coupon} onChange={(e) => setCoupon(e.target.value)} type="text" className='border py-2 px-[20px] w-full bg-gray-200 rounded-xl' placeholder='Enter coupon code' />
+                            <button onClick={handleAddCoupon} className='bg-amber-500 text-black font-semibold px-4 py-2 rounded-xl cursor-pointer hover:bg-amber-700 hover:text-white transition duration-500'>Apply</button>
+                        </div>
                     </div>
                     <Link to="/payment">
                         <button className="mt-4 bg-black hover:bg-transparent hover:text-black transition duration-500 text-white px-6 py-3 w-full text-center uppercase font-semibold cursor-pointer">
