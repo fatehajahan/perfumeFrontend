@@ -31,7 +31,7 @@ const Login = () => {
                 console.log(res.data.user)
                 dispatch(addUser(res.data.user))
                 setTimeout(() => {
-                    navigate("/")
+                    navigate("/homePage")
                 }, 1500)
             }).catch((error) => {
                 toast.error("login failed")
