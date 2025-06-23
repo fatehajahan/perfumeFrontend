@@ -17,6 +17,7 @@ const ProductBuy = () => {
     const dispatch = useDispatch()
     const [products, setProducts] = useState([]);
     const [selectedImage, setSelectedImage] = useState("");
+    const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     const navigate = useNavigate();
 
@@ -47,20 +48,23 @@ const ProductBuy = () => {
 
 
     // function to add product to cart
-    const handleAddToCart = async (product) => {
-        dispatch(cartTotal(product))
-    }
+    const handleAddToCart = () => {
+        const productWithQty = {
+            ...product,
+            quantity: quantity
+        };
+        dispatch(cartTotal(productWithQty));
+    };
 
-    // product quantity 
-    const handleIncreament = (index) => {
-        console.log('first', index)
-        dispatch(quantityUpdate({ index: index, type: "increament" }))
-    }
+    const handleIncreament = () => {
+        setQuantity(prev => prev + 1);
+    };
 
-    const handleDecreament = (index) => {
-        console.log('first', index)
-        dispatch(quantityDecreament({ index: index, type: "decreament" }))
-    }
+    const handleDecreament = () => {
+        if (quantity > 1) {
+            setQuantity(prev => prev - 1);
+        }
+    };
     return (
         <div>
             <div className="container">
@@ -99,24 +103,18 @@ const ProductBuy = () => {
                         <p className="font-urbanist text-[15px] text-justify">{product.description}</p>
 
                         {/* Quantity & Cart */}
-                        {
-                            data.map((item, index) => (
-                                <div className="flex text-[15px] gap-x-4 items-center">
-                                    <div className="flex items-center">
-                                        <p onClick={() => data[index].quantity > 1 && handleDecreament(index)}
-                                            className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
-                                                ? 'cursor-not-allowed bg-gray-300 text-gray-600'
-                                                : 'cursor-pointer hover:bg-black hover:text-white'
-                                                }`} >-</p>
-                                        <p className="border px-4">{item.quantity}</p>
-                                        <p onClick={() => handleIncreament(index)} className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
-                                    </div>
-                                    <div onClick={() => handleAddToCart(product)} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
-                                        Add to Cart
-                                    </div>
-                                </div>
-                            ))
-                        }
+
+                        <div className="flex text-[15px] gap-x-4 items-center">
+                            <div className="flex gap-2 items-center">
+                                <p onClick={handleDecreament} className={`border px-[15px] transition duration-300 ${quantity === 1 ? 'cursor-not-allowed bg-gray-300 text-gray-600' : 'cursor-pointer hover:bg-black hover:text-white'}`} >-</p>
+                                <p className="border px-4">{quantity}</p>
+                                <p onClick={handleIncreament} className="border px-[15px] transition duration-300 cursor-pointer hover:bg-black hover:text-white" >+</p>
+                            </div>
+                            <div onClick={handleAddToCart} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
+                                Add to Cart
+                            </div>
+                        </div>
+
 
 
                         {/* Payment */}
