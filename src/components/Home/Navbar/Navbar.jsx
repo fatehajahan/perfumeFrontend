@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import logo from '../../../assets/homepage/logo1.png';
-import { FaCartArrowDown } from 'react-icons/fa';
-import { FaCircleUser } from 'react-icons/fa6';
+import profileImg from '../../../assets/noImg.jpg'
+import { FaCartArrowDown, FaCog, FaQuestionCircle, FaSignOutAlt } from 'react-icons/fa';
+import { FaCircleUser, FaCommentDots, FaMoon } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { IoIosMenu } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 
 const Navbar = ({ setCartOpen }) => {
   const data = useSelector((state) => state.cartDetails.cartItems)
-  console.log(data)
-
+  const user = useSelector((state) => state.userDetails.currentUser)
+  console.log(user.firstName)
   const [dropdown, setDropdown] = useState(false);
   const [profile, setProfile] = useState(false);
+  console.log(user)
 
   const toggleMenu = (item) => {
     if (item === "profile") {
@@ -23,6 +25,15 @@ const Navbar = ({ setCartOpen }) => {
     }
   };
 
+  const DropdownItem = ({ icon, label, shortcut }) => (
+    <div className='flex items-center justify-between hover:bg-[#3a3b3c] px-3 py-2 rounded cursor-pointer'>
+      <div className='flex items-center gap-3'>
+        {icon}
+        <p>{label}</p>
+      </div>
+      {shortcut && <span className='text-sm text-gray-400'>{shortcut}</span>}
+    </div>
+  );
   return (
     <div className='py-[20px] fixed bg-white top-0 left-0 w-full z-50'>
       <div className="container">
@@ -97,13 +108,42 @@ const Navbar = ({ setCartOpen }) => {
               <FaCircleUser className='hover:text-[#6a6a6a] transition duration-300' onClick={() => toggleMenu("profile")} />
 
               {profile && (
-                <div className='absolute md:right-[10px] md:top-[50px] z-50'>
-                  <div className='bg-white flex flex-col gap-y-[30px] py-[30px] px-[20px] rounded-lg shadow-lg'>
-                    <Link to="/login" className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Login</Link>
-                    <Link to="/registration" className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Registration</Link>
-                  </div>
+                <div className='absolute right-0 top-[50px] z-50'>
+                  {user ? (
+                    <div className='w-[300px] bg-[#1c1e21] text-white rounded-lg shadow-lg p-4 font-sans'>
+                      <div className='flex flex-col items-center mb-4'>
+                        <img
+                          src={profileImg}
+                          alt='Profile'
+                          className='w-[40px] h-[40px] rounded-full'
+                        />
+                        <p className='mt-2 font-semibold'>{user.firstName || 'User Name'}</p>
+                        <button className='mt-2 text-sm text-gray-300 hover:underline'>See all profiles</button>
+                      </div>
+
+                      <hr className='border-gray-600 mb-4' />
+
+                      <div className='space-y-3'>
+                        <div className='flex items-center gap-3 hover:bg-[#3a3b3c] px-3 py-2 rounded cursor-pointer'>
+                          <FaSignOutAlt />
+                          <p>Log Out</p>
+                        </div>
+                      </div>
+
+                      <div className='mt-4 text-xs text-gray-500 text-center'>
+                        <p>Privacy · Terms · Advertising · Ad choices · Cookies · More</p>
+                        <p className='mt-1'>Meta © 2025</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='bg-white flex flex-col gap-y-[30px] py-[30px] px-[20px] rounded-lg shadow-lg'>
+                      <Link to='/login' className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Login</Link>
+                      <Link to='/registration' className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Registration</Link>
+                    </div>
+                  )}
                 </div>
               )}
+
             </div>
           </div>
         </div>

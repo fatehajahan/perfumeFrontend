@@ -11,7 +11,6 @@ import { cartTotal } from "../../slices/cartSlice";
 
 const ProductBuy = () => {
     const url = import.meta.env.VITE_APP_URL
-    // console.log(url)
     const dispatch = useDispatch()
     const [products, setProducts] = useState([]);
     const [selectedImage, setSelectedImage] = useState("");

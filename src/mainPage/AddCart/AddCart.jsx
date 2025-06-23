@@ -18,7 +18,7 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                     {
                         data.length > 0 ?
                             data.map((product) => (
-                                <div className="flex gap-x-[20px]">
+                                <div key={product._id} className="flex gap-x-[20px]">
                                     <img src={product.images[0]} alt="" className="w-[60px] h-[60px]" />
 
                                     <div>

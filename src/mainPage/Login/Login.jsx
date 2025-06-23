@@ -3,10 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import login from '../../assets/login/login.png'
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../../slices/userSlice';
 
 const Login = () => {
     const url = import.meta.env.VITE_APP_URL
     console.log(url)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [userData, setUserData] = useState({
         email: "",
@@ -21,11 +24,12 @@ const Login = () => {
         console.log(userData, "userdata")
         axios.post(`${url}/authentication/login`, userData, {
             withCredentials: true,
-        }
-        )
+        })
             .then((res) => {
                 toast.success(res.data.message)
                 console.log("you've logged in")
+                console.log(res.data.user)
+                dispatch(addUser(res.data.user))
                 setTimeout(() => {
                     navigate("/")
                 }, 1500)
@@ -34,6 +38,7 @@ const Login = () => {
                 console.log(error)
             })
     }
+
     return (
         <div className='md:flex items-center overflow-hidden h-screen bg-[linear-gradient(90deg,#AE8625,#F7EF8A,#D2AC47,#EDC967)]'>
             <ToastContainer
@@ -65,7 +70,9 @@ const Login = () => {
 
                     <div onClick={handleSubmit} className="submitBtn mt-[30px] text-center">
                         <Link>
+                            {/* <div onClick={checkUser}> */}
                             <p className='bg-[#c6866b] w-[150px] text-center py-[5px] mx-auto cursor-pointer font-urbanist font-bold hover:bg-transparent hover:text-black text-white transition duration-500'>Log In</p>
+                            {/* </div> */}
                         </Link>
 
                         <div className='pt-[20px]'>
@@ -85,3 +92,4 @@ const Login = () => {
 }
 
 export default Login
+

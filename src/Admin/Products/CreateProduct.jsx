@@ -48,6 +48,7 @@ const CreateProduct = () => {
 
             const response = await axios.post(
                 "http://localhost:3000/api/v1/product/createproduct",
+                // `${url}/product/createproduct`,
                 formData,
                 {
                     headers: { "Content-Type": "multipart/form-data" },

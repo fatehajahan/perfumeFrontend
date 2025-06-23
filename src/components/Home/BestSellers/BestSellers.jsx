@@ -6,7 +6,6 @@ import axios from 'axios'
 const BestSellers = () => {
     const [products, setProducts] = useState([]);
     const url = import.meta.env.VITE_APP_URL
-    console.log(url)
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -21,7 +20,6 @@ const BestSellers = () => {
         fetchProducts();
     }, []);
     const bestSellers = products.slice(0, 4);
-    console.log(products)
 
     return (
         <div className='md:py-[80px]'>
