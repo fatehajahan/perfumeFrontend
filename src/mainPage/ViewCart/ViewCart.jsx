@@ -2,7 +2,7 @@ import React from 'react'
 import productImg from '../../assets/broughtpageBlue/product1.jpg'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { quantityUpdate } from '../../slices/cartSlice'
+import { quantityDecreament, quantityUpdate, removeItem } from '../../slices/cartSlice'
 
 const ViewCart = () => {
     const data = useSelector((state) => state.cartDetails.cartItems)
@@ -11,6 +11,18 @@ const ViewCart = () => {
     const handleIncreament = (index) => {
         console.log('first', index)
         dispatch(quantityUpdate({ index: index, type: "increament" }))
+    }
+
+    const handleDecreament = (index) => {
+        console.log('first', index)
+        dispatch(quantityDecreament({ index: index, type: "decreament" }))
+        // if (data[index].quantity === 1) {
+
+        // }
+    }
+
+    const handleRemove = (index) => {
+        dispatch(removeItem(index))
     }
     return (
         <div className="container mx-auto py-[150px] px-4">
@@ -33,21 +45,45 @@ const ViewCart = () => {
                         <tbody>
                             {data.length > 0 ? data.map((product, index) => (
                                 <tr key={product._id} className="border-b">
-                                    <td className="p-4 flex items-center gap-4">
-                                        <button className="text-gray-500 hover:text-red-500">X</button>
-                                        <img src={product.images[0]} className="w-16 h-16 object-cover border" />
-                                        <span className="font-medium">{product.name}</span>
-                                    </td>
-                                    <td className="p-4 font-bold">${product.price}</td>
                                     <td className="p-4">
-                                        <div className="flex text-[15px]">
-                                            <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition">-</p>
-                                            <p className="border px-[15px]">{product.quantity}</p>
-                                            <p onClick={() => handleIncreament(index)} className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition">+</p>
+                                        <div className="flex items-center gap-4">
+                                            <button
+                                                onClick={() => handleRemove(index)}
+                                                className="text-gray-500 hover:text-red-500 cursor-pointer"
+                                            >
+                                                X
+                                            </button>
+                                            <img src={product.images[0]} className="w-16 h-16 object-cover border" />
+                                            <span className="font-medium">{product.name}</span>
                                         </div>
                                     </td>
-                                    <td className="p-4 font-bold">${(product.price * product.quantity)}</td>
+
+                                    <td className="p-4 font-bold">${product.price}</td>
+
+                                    <td className="p-4">
+                                        <div className="flex text-[15px]">
+                                            <p
+                                                onClick={() => data[index].quantity > 1 && handleDecreament(index)}
+                                                className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
+                                                    ? 'cursor-not-allowed bg-gray-300 text-gray-600'
+                                                    : 'cursor-pointer hover:bg-black hover:text-white'
+                                                    }`}
+                                            >
+                                                -
+                                            </p>
+                                            <p className="border px-[15px]">{product.quantity}</p>
+                                            <p
+                                                onClick={() => handleIncreament(index)}
+                                                className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition"
+                                            >
+                                                +
+                                            </p>
+                                        </div>
+                                    </td>
+
+                                    <td className="p-4 font-bold">${product.price * product.quantity}</td>
                                 </tr>
+
                             )) : (
                                 <tr>
                                     <td colSpan="4" className="p-4 text-center">No items in cart</td>
@@ -94,7 +130,7 @@ const ViewCart = () => {
                                 </div>
                             </div>
                         )) : <div>
-                            <td colSpan="4" className="p-4 text-center">No items in cart</td>
+                            <td colSpan="4" className="md:hidden p-4 text-center">No items in cart</td>
                         </div>
                     }
 
