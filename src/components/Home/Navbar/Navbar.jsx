@@ -3,11 +3,15 @@ import logo from '../../../assets/homepage/logo1.png';
 import profileImg from '../../../assets/noImg.jpg'
 import { FaCartArrowDown, FaCog, FaQuestionCircle, FaSignOutAlt } from 'react-icons/fa';
 import { FaCircleUser, FaCommentDots, FaMoon } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoIosMenu } from 'react-icons/io';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeUser } from '../../../slices/userSlice';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 const Navbar = ({ setCartOpen }) => {
+  const url = import.meta.env.VITE_APP_URL;
   const data = useSelector((state) => state.cartDetails.cartItems)
   const user = useSelector((state) => state.userDetails.currentUser)
   console.log(user.firstName)
@@ -25,8 +29,39 @@ const Navbar = ({ setCartOpen }) => {
     }
   };
 
+
+  // logout
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(`${url}/authentication/logout`, {}, {
+        withCredentials: true,
+      });
+      toast.success(res.data.message);
+      dispatch(removeUser()); // clear redux
+      navigate("/login"); // or home
+    } catch (error) {
+      toast.error("Logout failed");
+      console.error(error);
+    }
+  };
   return (
     <div className='py-[20px] fixed bg-white top-0 left-0 w-full z-50'>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <div className="container">
         <div className='flex justify-between items-center'>
 
@@ -117,7 +152,7 @@ const Navbar = ({ setCartOpen }) => {
                       <div className='space-y-3'>
                         <div className='flex items-center gap-3 hover:bg-[#3a3b3c] px-3 py-2 rounded cursor-pointer'>
                           <FaSignOutAlt />
-                          <p>Log Out</p>
+                          <p onClick={handleLogout}>Log Out</p>
                         </div>
                       </div>
 

@@ -50,7 +50,6 @@ const Layout = () => {
           className="fixed inset-0 bg-[#00000049]"
           onClick={() => {
             setCartOpen(false)
-            setDropdown(false)
           }}
         ></div>
       )}
@@ -64,7 +63,7 @@ const router = createBrowserRouter(
     <Route>
       {/* Public/User Layout */}
       <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/homePage" element={<Home />} />
         <Route path="/buyPerfumes" element={<BuyPerfumes />} />
         <Route path="/buyExclusive" element={<Exclusive />} />
         <Route path="/womenPerfumes" element={<Women />} />
@@ -76,7 +75,7 @@ const router = createBrowserRouter(
       </Route>
 
       {/* Public Routes outside layout */}
-      <Route path="/registration" element={<Registration />} />
+      <Route path="/" element={<Registration />} />
       <Route path="/login" element={<Login />} />
       <Route path="/verification" element={<OtpVerify />} />
 

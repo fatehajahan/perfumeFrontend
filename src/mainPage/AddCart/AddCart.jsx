@@ -1,12 +1,24 @@
 import React from "react";
 import cartPerfume from '../../assets/broughtpageBlue/product1.jpg'
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { quantityDecreament, quantityUpdate } from "../../slices/cartSlice";
 
 const AddCart = ({ cartOpen, setCartOpen }) => {
     const data = useSelector((state) => state.cartDetails.cartItems)
     console.log(data)
+    const dispatch = useDispatch()
 
+    // for add quantity
+    const handleIncreament = (index) => {
+        console.log('first', index)
+        dispatch(quantityUpdate({ index: index, type: "increament" }))
+    }
+
+    const handleDecreament = (index) => {
+        console.log('first', index)
+        dispatch(quantityDecreament({ index: index, type: "decreament" }))
+    }
     return (
         <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transition-transform duration-300 flex flex-col justify-between  ${cartOpen ? "translate-x-0 " : "translate-x-full "} z-50`} >
             <div>
@@ -17,7 +29,7 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                 <div className="p-5">
                     {
                         data.length > 0 ?
-                            data.map((product) => (
+                            data.map((product, index) => (
                                 <div key={product._id} className="py-[10px]">
                                     <div className="flex gap-x-[20px]">
                                         <img src={product.images[0]} alt="" className="w-[60px] h-[60px]" />
@@ -25,9 +37,13 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                                         <div>
                                             <p>{product.name}</p>
                                             <div className="flex text-[15px]">
-                                                <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">-</p>
+                                                <p onClick={() => data[index].quantity > 1 && handleDecreament(index)}
+                                                    className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
+                                                        ? 'cursor-not-allowed bg-gray-300 text-gray-600'
+                                                        : 'cursor-pointer hover:bg-black hover:text-white'
+                                                        }`}>-</p>
                                                 <p className="border px-[15px]">{product.quantity}</p>
-                                                <p className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition duration-300">+</p>
+                                                <p onClick={() => handleIncreament(index)} className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
                                             </div>
                                         </div>
                                     </div>

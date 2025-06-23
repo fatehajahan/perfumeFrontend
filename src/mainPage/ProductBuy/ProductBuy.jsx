@@ -6,10 +6,13 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Footer from "../../components/Home/Footer/Footer";
 import ReviewForm from "../../components/ReviewForm/ReviewForm";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartTotal } from "../../slices/cartSlice";
+import { quantityDecreament, quantityUpdate } from '../../slices/cartSlice'
 
 const ProductBuy = () => {
+    const data = useSelector((state) => state.cartDetails.cartItems)
+    console.log(data)
     const url = import.meta.env.VITE_APP_URL
     const dispatch = useDispatch()
     const [products, setProducts] = useState([]);
@@ -44,8 +47,19 @@ const ProductBuy = () => {
 
 
     // function to add product to cart
-    const handleAddToCart = async (product) =>{
+    const handleAddToCart = async (product) => {
         dispatch(cartTotal(product))
+    }
+
+    // product quantity 
+    const handleIncreament = (index) => {
+        console.log('first', index)
+        dispatch(quantityUpdate({ index: index, type: "increament" }))
+    }
+
+    const handleDecreament = (index) => {
+        console.log('first', index)
+        dispatch(quantityDecreament({ index: index, type: "decreament" }))
     }
     return (
         <div>
@@ -85,16 +99,25 @@ const ProductBuy = () => {
                         <p className="font-urbanist text-[15px] text-justify">{product.description}</p>
 
                         {/* Quantity & Cart */}
-                        <div className="flex text-[15px] gap-x-4 items-center">
-                            <div className="flex items-center">
-                                <p className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">-</p>
-                                <p className="border px-4">1</p>
-                                <p className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
-                            </div>
-                            <div onClick={()=>handleAddToCart(product)} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
-                                Add to Cart
-                            </div>
-                        </div>
+                        {
+                            data.map((item, index) => (
+                                <div className="flex text-[15px] gap-x-4 items-center">
+                                    <div className="flex items-center">
+                                        <p onClick={() => data[index].quantity > 1 && handleDecreament(index)}
+                                            className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
+                                                ? 'cursor-not-allowed bg-gray-300 text-gray-600'
+                                                : 'cursor-pointer hover:bg-black hover:text-white'
+                                                }`} >-</p>
+                                        <p className="border px-4">{item.quantity}</p>
+                                        <p onClick={() => handleIncreament(index)} className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
+                                    </div>
+                                    <div onClick={() => handleAddToCart(product)} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
+                                        Add to Cart
+                                    </div>
+                                </div>
+                            ))
+                        }
+
 
                         {/* Payment */}
                         <div className="mx-auto mt-4 border w-full py-4 relative text-[#000]">
