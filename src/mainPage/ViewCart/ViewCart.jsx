@@ -32,7 +32,7 @@ const ViewCart = () => {
 
     const handleAddCoupon = () => {
         console.log(coupon)
-        if (coupon === "PAND10") {
+        if (coupon === "PANDA10") {
             setDiscount(totalPrice * 0.1);
         } else if (coupon === "PANDA20") {
             setDiscount(totalPrice * 0.2);

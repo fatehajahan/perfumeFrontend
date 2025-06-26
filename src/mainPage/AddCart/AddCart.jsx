@@ -1,12 +1,13 @@
 import React from "react";
 import cartPerfume from '../../assets/broughtpageBlue/product1.jpg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { quantityDecreament, quantityUpdate } from "../../slices/cartSlice";
 
 const AddCart = ({ cartOpen, setCartOpen }) => {
     const data = useSelector((state) => state.cartDetails.cartItems)
     console.log(data)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     // for add quantity
@@ -19,8 +20,16 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
         console.log('first', index)
         dispatch(quantityDecreament({ index: index, type: "decreament" }))
     }
+
+    // for payment
+    const handlePayment = () => {
+        console.log('zxcz')
+        navigate('/payment', {
+            state: { some: "state" }
+        })
+    }
     return (
-        <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transition-transform duration-300 flex flex-col justify-between  ${cartOpen ? "translate-x-0 " : "translate-x-full "} z-50`} >
+        <div className={`fixed top-0 right-0 h-full w-80 bg-white shadow-lg transition-transform duration-300 flex flex-col justify-between  ${cartOpen ? "translate-x-0 " : "translate-x-full "} z-50 overflow-y-auto`} >
             <div>
                 <div className="p-5 flex justify-between items-center border-b ">
                     <h2 className="text-xl font-semibold">Your Cart</h2>
@@ -69,7 +78,9 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                     </div>
 
                     <div className="bg-black w-full text-white text-center py-[5px] cursor-pointer hover:bg-transparent hover:text-black transition duration-500">
-                        <Link onClick={() => setCartOpen(false)} to="/payment" className="font-urbanist font-bold text-[15px]">CHECKOUT</Link>
+                        <div onClick={handlePayment}>
+                            <button onClick={() => setCartOpen(false)} className="font-urbanist font-bold text-[15px] cursor-pointer">CHECKOUT</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,8 @@ const Navbar = ({ setCartOpen }) => {
   const url = import.meta.env.VITE_APP_URL;
   const data = useSelector((state) => state.cartDetails.cartItems)
   const user = useSelector((state) => state.userDetails.currentUser)
-  console.log(user.firstName)
+  // console.log(user.firstName)
+  console.log(data.length)
   const [dropdown, setDropdown] = useState(false);
   const [profile, setProfile] = useState(false);
   console.log(user)
@@ -127,7 +128,9 @@ const Navbar = ({ setCartOpen }) => {
                 }} />
 
                 {
-                  data.length > 0 && <div className='bg-red-500 rounded-full w-[10px] h-[10px] absolute top-[-3px] right-[-4px]'></div>
+                  data.length > 0 && <div className='bg-red-500 rounded-full w-[16px] h-[16px] absolute top-[-3px] right-[-4px]'>
+                    {data.length > 9 ? <p className='text-[12px] font-semibold text-white text-center'>9+</p> : <p className='text-[12px] text-white font-semibold text-center'>{data.length}</p>}
+                  </div>
                 }
 
               </div>
