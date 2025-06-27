@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const Payment = () => {
+    const url = import.meta.env.VITE_APP_URL
+    console.log(url)
     const [paymentMethod, setPaymentMethod] = useState("bank");
 
     // for taking the data from the form
@@ -18,7 +20,8 @@ const Payment = () => {
         country: "Bangladesh",
         postcode: "",
         phone: "",
-        notes: ""
+        notes: "",
+        email: "",
     })
 
     const handleChange = (e) => {
@@ -38,7 +41,7 @@ const Payment = () => {
 
     const handleOrder = () => {
         console.log(checkoutData)
-        const response = axios.post("http://localhost:3000/api/v1/order/orderprocess", {
+        const response = axios.post(`${url}/order/orderprocess`, {
             firstname: checkoutData.firstname,
             lastname: checkoutData.lastname,
             address: checkoutData.address,
@@ -48,6 +51,7 @@ const Payment = () => {
             phone: checkoutData.phone,
             notes: checkoutData.notes,
             price: totalPrice,
+            email: checkoutData.email
         }).then((res) => {
             toast.success("Order placed successfully!")
         })
@@ -72,6 +76,9 @@ const Payment = () => {
                 <div>
                     <h2 className="text-xl font-semibold">Contact <span className='text-red-600 text-[18px] '>*</span></h2>
                     <input
+                        onChange={handleChange}
+                        value={checkoutData.email}
+                        name='email'
                         type="email"
                         placeholder="Email Address"
                         className="w-full mt-2 px-4 py-2 border border-gray-300 rounded"
