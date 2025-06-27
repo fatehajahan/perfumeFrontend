@@ -68,17 +68,17 @@ const ProductBuy = () => {
     return (
         <div>
             <div className="container">
-                <div className="md:py-[150px] py-[20px] md:flex gap-6">
+                <div className="md:py-[150px] py-[100px] md:flex gap-6 ">
                     {/* Image Section */}
-                    <div className="px-4 md:w-1/2 flex gap-6">
+                    <div className="px-4 md:w-1/2 md:flex gap-6">
                         {/* Thumbnails */}
-                        <div className="flex flex-col gap-4">
+                        <div className="flex md:flex-col flex-row gap-4">
                             {product.images.map((img, index) => (
                                 <img
                                     key={index}
                                     src={img}
                                     alt={`Product ${index}`}
-                                    className={`w-[100px] h-[100px] object-cover border rounded cursor-pointer ${selectedImage === img ? "border-black" : "border-gray-300"}`}
+                                    className={`md:w-[100px] md:h-[100px] w-[70px] h-[70px] object-cover border rounded cursor-pointer ${selectedImage === img ? "border-black" : "border-gray-300"}`}
                                     onClick={() => setSelectedImage(img)}
                                 />
                             ))}

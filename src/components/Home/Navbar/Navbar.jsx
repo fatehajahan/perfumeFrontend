@@ -107,7 +107,7 @@ const Navbar = ({ setCartOpen }) => {
           </div>
 
           {/* Logo */}
-          <Link to="/">
+          <Link to="/homePage">
             <div className="middleLogo">
               <img src={logo} alt="" className='cursor-pointer md:block hidden' />
             </div>
@@ -165,7 +165,7 @@ const Navbar = ({ setCartOpen }) => {
                       </div>
                     </div>
                   ) : (
-                    <div className='bg-white flex flex-col gap-y-[30px] py-[30px] px-[20px] rounded-lg shadow-lg'>
+                    <div className=' bg-white flex flex-col gap-y-[30px] py-[30px] px-[20px] rounded-lg shadow-lg'>
                       <Link to='/login' className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Login</Link>
                       <Link to='/registration' className='bg-black text-white hover:bg-transparent hover:text-black transition duration-500 px-[15px] text-center'>Registration</Link>
                     </div>
