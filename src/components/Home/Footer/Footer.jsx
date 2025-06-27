@@ -11,7 +11,7 @@ const Footer = () => {
                         <p className='md:w-[280px] text-[14px] font-urbanist pt-[43px]  md:text-left text-justify'>Lorem ipsum dolor sit amet, conseoriosam, dolore a, earum qui excepturi, Dolorem officiis natus nemo nam beatae incidunt mollitia!</p>
                     </div>
 
-                    <div className="left md:w-1/3 md:py-0 py-[30px] ">
+                    <div className="left md:w-1/3 md:py-0 py-[30px] px-[40px]">
                         <p className='font-cormot font-bold md:text-base text-[20px]'>customer care</p>
                         <div className='font-cormot '>
                             <p className='md:w-[280px] text-[14px] font-urbanist md:pt-[43px] pt-[15px]'>Need help? We're always here for you, and ready to help.</p>

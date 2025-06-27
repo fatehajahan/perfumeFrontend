@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import productImg from '../../assets/broughtpageBlue/product1.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { quantityDecreament, quantityUpdate, removeItem } from '../../slices/cartSlice'
@@ -10,6 +10,7 @@ const ViewCart = () => {
     const [discount, setDiscount] = useState(0)
     const data = useSelector((state) => state.cartDetails.cartItems)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleIncreament = (index) => {
         console.log('first', index)
@@ -41,7 +42,15 @@ const ViewCart = () => {
             toast.error("Invalid coupon code")
         }
     }
+    const subTotal = totalPrice - discount
 
+    // for payment
+    const handlePayment = () => {
+        console.log('zxcz')
+        navigate('/payment', {
+            state: { totalPrice: subTotal }
+        })
+    }
     return (
         <div className="container mx-auto py-[150px] px-4">
             <ToastContainer
@@ -178,7 +187,7 @@ const ViewCart = () => {
                     </div>
                     <div className="flex justify-between border-b py-2 font-bold">
                         <span>Subtotal:</span>
-                        <span>${totalPrice - discount}</span>
+                        <span>${subTotal}</span>
                     </div>
                     <div>
                         <p className="mt-4 text-sm cursor-pointer">Have a coupon?</p>
@@ -187,11 +196,11 @@ const ViewCart = () => {
                             <button onClick={handleAddCoupon} className='bg-amber-500 text-black font-semibold px-4 py-2 rounded-xl cursor-pointer hover:bg-amber-700 hover:text-white transition duration-500'>Apply</button>
                         </div>
                     </div>
-                    <Link to="/payment">
-                        <button className="mt-4 bg-black hover:bg-transparent hover:text-black transition duration-500 text-white px-6 py-3 w-full text-center uppercase font-semibold cursor-pointer">
+                    <div >
+                        <button onClick={handlePayment} className="mt-4 bg-black hover:bg-transparent hover:text-black transition duration-500 text-white px-6 py-3 w-full text-center uppercase font-semibold cursor-pointer">
                             Checkout
                         </button>
-                    </Link>
+                    </div>
                 </div>
             </div>
         </div>

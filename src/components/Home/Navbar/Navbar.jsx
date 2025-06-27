@@ -128,7 +128,7 @@ const Navbar = ({ setCartOpen }) => {
                 }} />
 
                 {
-                  data.length > 0 && <div className='bg-red-500 rounded-full w-[16px] h-[16px] absolute top-[-3px] right-[-4px]'>
+                  data.length > 0 && <div onClick={() => setCartOpen(true)} className='bg-red-500 rounded-full w-[16px] h-[16px] absolute top-[-3px] right-[-4px]'>
                     {data.length > 9 ? <p className='text-[12px] font-semibold text-white text-center'>9+</p> : <p className='text-[12px] text-white font-semibold text-center'>{data.length}</p>}
                   </div>
                 }
@@ -147,7 +147,7 @@ const Navbar = ({ setCartOpen }) => {
                           className='w-[40px] h-[40px] rounded-full'
                         />
                         <p className='mt-2 font-semibold'>{user.firstName || 'User Name'}</p>
-                        <button className='mt-2 text-sm text-gray-300 hover:underline'>See all profiles</button>
+                        <button className='mt-2 text-sm text-gray-300 hover:underline'>{user.email}</button>
                       </div>
 
                       <hr className='border-gray-600 mb-4' />

@@ -1,10 +1,21 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const Order = () => {
+    const [orders, setOrders] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:3000/api/v1/order/getallorder")
+            .then((res) => setOrders(res.data.data))
+    }, [])
+    console.log(orders)
+    // const TABLE_HEAD = ["Sr No", "Category Name", "Category Description", "Update", "Delete"];
+
+    // const TABLE_ROWS = categories
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             <h2 className="text-3xl font-bold mb-6">Orders List</h2>
-            
+
             {/* for empty state */}
             <p className="text-gray-500">No orders found.</p>
 

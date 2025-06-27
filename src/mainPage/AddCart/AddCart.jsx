@@ -10,6 +10,10 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const totalPrice = data.reduce((acc, items) => {
+        return acc + items.price * items.quantity
+    }, 0);
+
     // for add quantity
     const handleIncreament = (index) => {
         console.log('first', index)
@@ -68,7 +72,7 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
             <div className="p-6 flex flex-col gap-y-[20px]">
                 <div className="flex justify-between items-center">
                     <p className="font-urbanist font-bold">Subtotal :</p>
-                    <p className="font-urbanist font-bold">$225.00</p>
+                    <p className="font-urbanist font-bold">${totalPrice}</p>
                 </div>
 
                 <div className="flex flex-col gap-y-[20px]">
