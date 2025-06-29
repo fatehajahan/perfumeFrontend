@@ -32,6 +32,16 @@ const Men = () => {
     }, []);
     console.log(exclusiveProducts)
 
+    const [getCategory, setGetCategory] = useState([])
+    useEffect(() => {
+        axios.get(`${url}/category/getallcategory`)
+            .then((res) => {
+                let arr = [...res.data.data]
+                setGetCategory(arr)
+            })
+    }, [])
+    console.log(getCategory)
+
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -60,6 +70,9 @@ const Men = () => {
                                             className='w-full object-cover'
                                         />
                                         <div className='pt-[15px]'>
+                                            <p className='text-[#9D9D9D] text-[15px]'>
+                                                {getCategory.find(cat => cat._id === product.category)?.categoryName || 'Unknown Category'}
+                                            </p>
                                             {/* Name */}
                                             <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
                                             {/* Stars */}

@@ -32,6 +32,16 @@ const Women = () => {
     }, []);
     console.log(exclusiveProducts)
 
+    const [getCategory, setGetCategory] = useState([])
+    useEffect(() => {
+        axios.get(`${url}/category/getallcategory`)
+            .then((res) => {
+                let arr = [...res.data.data]
+                setGetCategory(arr)
+            })
+    }, [])
+    console.log(getCategory)
+
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -57,7 +67,7 @@ const Women = () => {
                                         <img
                                             src={product.images?.[0] || noImg}
                                             alt={product.name}
-                                            className='w-full h-[200px] object-cover'
+                                            className='w-full object-cover'
                                         />
                                         <div className='pt-[15px]'>
                                             {/* category */}
