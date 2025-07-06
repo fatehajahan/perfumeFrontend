@@ -17,9 +17,30 @@
     }
 }
 
+@utility aboutContainer {
+  padding-inline: 10px;
+  margin-inline: auto;
+
+  @variant sm {
+    padding-inline: 20px;
+    max-width: 640px; /* Tailwind default sm */
+  }
+
+  @variant lg {
+    padding-inline: 80px;
+    max-width: 1124px; /* 1024px + 100px */
+  }
+
+  @variant xl {
+    padding-inline: 120px;
+    max-width: 1420px; /* 1320px + 100px */
+  }
+}
+
 @theme{
     --background-image-banner : url('../src/assets/homepage/banner.jpg');
-    --background-image-shop : url('../src/assets/homepage/shopnow.jpg')
+    --background-image-shop : url('../src/assets/homepage/shopnow.jpg');
+    --background-image-aboutBanner : url('../src/assets/aboutUs/bg-11.jpg')
 }
 
 @theme{

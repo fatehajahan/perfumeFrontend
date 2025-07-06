@@ -51,12 +51,12 @@ const AddCart = ({ cartOpen, setCartOpen }) => {
                                             <p>{product.name}</p>
                                             <div className="flex text-[15px]">
                                                 <p onClick={() => data[index].quantity > 1 && handleDecreament(index)}
-                                                    className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
+                                                    className={` select-none border px-[15px] transition duration-300 ${data[index].quantity === 1
                                                         ? 'cursor-not-allowed bg-gray-300 text-gray-600'
                                                         : 'cursor-pointer hover:bg-black hover:text-white'
                                                         }`}>-</p>
                                                 <p className="border px-[15px]">{product.quantity}</p>
-                                                <p onClick={() => handleIncreament(index)} className="border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
+                                                <p onClick={() => handleIncreament(index)} className=" select-none border px-4 cursor-pointer hover:bg-black hover:text-white transition">+</p>
                                             </div>
                                         </div>
                                     </div>

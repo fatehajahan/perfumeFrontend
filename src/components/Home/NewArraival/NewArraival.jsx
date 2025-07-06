@@ -24,7 +24,7 @@ const NewArraival = () => {
                         </h1>
                         <p className='md:w-[500px] font-urbanist py-[20px]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex fugit quo vero vitae inventore excepturi eum quod debitis nulla architecto.</p>
                         <button className="font-cormot text-white bg-black py-2 px-6 w-[190px] text-center cursor-pointer hover:bg-transparent hover:text-black border border-black transition duration-500 font-bold mt-6 tracking-wide">
-                            <Link to="/registration">SIGN UP NOW</Link>
+                            <Link to="/">SIGN UP NOW</Link>
                         </button>
                     </div>
                 </div>

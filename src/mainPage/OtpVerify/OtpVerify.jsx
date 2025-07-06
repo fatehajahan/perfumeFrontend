@@ -38,7 +38,7 @@ const OtpVerify = () => {
         <div className='flex flex-col items-center justify-center h-screen'>
             <ToastContainer
                 position="top-center"
-                autoClose={5000}
+                autoClose={1000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
@@ -58,6 +58,7 @@ const OtpVerify = () => {
                 {/* otp */}
                 <input
                     onChange={(e) => setOtp(e.target.value)}
+                    autoFocus={true}
                     value={otp} name='otp' type="number" className='border border-[#f0c5d9] bg-gray-200 py-[6px] px-[15px] w-full md:placeholder:text-[14px] placeholder:text-[12.5px]' placeholder='Your Otp' />
 
                 <div>

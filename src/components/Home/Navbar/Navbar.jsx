@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../../../slices/userSlice';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
+import { clearCart } from '../../../slices/cartSlice';
 
 const Navbar = ({ setCartOpen }) => {
   const url = import.meta.env.VITE_APP_URL;
@@ -42,6 +43,7 @@ const Navbar = ({ setCartOpen }) => {
       });
       toast.success(res.data.message);
       dispatch(removeUser()); // clear redux
+      dispatch(clearCart()); // clear cart
       navigate("/login"); // or home
     } catch (error) {
       toast.error("Logout failed");
@@ -100,14 +102,14 @@ const Navbar = ({ setCartOpen }) => {
 
         <div className={`transition duration-300 ${dropdown ? 'translate-x-0' : "md:flex justify-between items-center hidden"}`}>
           <div className="leftNavitems md:flex items-center gap-x-[20px] font-urbanist text-[13px] cursor-pointer">
-            <Link to="/buyPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>BUY PERFUMES</p></Link>
-            <Link to="/buyExclusive"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>EXCLUSIVE</p></Link>
-            <Link to="/womenPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>WOMEN</p></Link>
-            <Link to="/menPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => setDropdown(false)}>MEN</p></Link>
+            <Link to="/buyPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => { setCartOpen(false), setDropdown(false) }}>BUY PERFUMES</p></Link>
+            <Link to="/buyExclusive"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => { setCartOpen(false), setDropdown(false) }}>EXCLUSIVE</p></Link>
+            <Link to="/womenPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => { setCartOpen(false), setDropdown(false) }}>WOMEN</p></Link>
+            <Link to="/menPerfumes"><p className='md:pt-0 pt-[11px] md:px-0 px-[15px]' onClick={() => { setCartOpen(false), setDropdown(false) }}>MEN</p></Link>
           </div>
 
           {/* Logo */}
-          <Link to="/homePage">
+          <Link onClick={() => { setCartOpen(false), setDropdown(false) }} to="/homePage">
             <div className="middleLogo">
               <img src={logo} alt="" className='cursor-pointer md:block hidden' />
             </div>
@@ -115,7 +117,9 @@ const Navbar = ({ setCartOpen }) => {
 
           {/* Desktop Profile & Cart */}
           <div className="rightnavitems md:flex items-center gap-x-[20px] font-urbanist text-[13px] cursor-pointer">
-            <p className='md:px-0 px-[15px] md:pt-0 pt-[11px]' onClick={() => setDropdown(false)}>ABOUT</p>
+            <div className='md:pt-0 pt-[11px]'>
+              <Link to="/aboutUs" className='md:px-0 px-[15px] uppercase' onClick={() => setDropdown(false)}>About Us</Link>
+            </div>
             <div className='md:pt-0 pt-[11px]'>
               <Link to="/contact" className='md:px-0 px-[15px] ' onClick={() => setDropdown(false)}>CONTACT</Link>
             </div>

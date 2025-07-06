@@ -5,6 +5,7 @@ import login from '../../assets/login/login.png'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../../slices/userSlice';
+import { loadUserCart } from '../../slices/cartSlice';
 
 const Login = () => {
     const url = import.meta.env.VITE_APP_URL
@@ -21,23 +22,28 @@ const Login = () => {
         })
     }
     const handleSubmit = () => {
-        console.log(userData, "userdata")
+        console.log(userData, "userdata");
         axios.post(`${url}/authentication/login`, userData, {
             withCredentials: true,
         })
             .then((res) => {
-                toast.success(res.data.message)
-                console.log("you've logged in")
-                console.log(res.data.user)
-                dispatch(addUser(res.data.user))
+                toast.success(res.data.message);
+                console.log("you've logged in");
+                console.log(res.data.user);
+
+                dispatch(addUser(res.data.user)); // Save user data
+                dispatch(loadUserCart(res.data.user.email)); //  Load cart for that user's email
+
                 setTimeout(() => {
-                    navigate("/homePage")
-                }, 1500)
-            }).catch((error) => {
-                toast.error("login failed")
-                console.log(error)
+                    navigate("/homePage");
+                }, 1500);
             })
-    }
+            .catch((error) => {
+                toast.error("login failed");
+                console.log(error);
+            });
+    };
+
 
     return (
         <div className='md:flex items-center overflow-hidden h-screen bg-[linear-gradient(90deg,#AE8625,#F7EF8A,#D2AC47,#EDC967)]'>

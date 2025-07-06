@@ -106,9 +106,9 @@ const ProductBuy = () => {
 
                         <div className="flex text-[15px] gap-x-4 items-center">
                             <div className="flex gap-2 items-center">
-                                <p onClick={handleDecreament} className={`border px-[15px] transition duration-300 ${quantity === 1 ? 'cursor-not-allowed bg-gray-300 text-gray-600' : 'cursor-pointer hover:bg-black hover:text-white'}`} >-</p>
+                                <p onClick={handleDecreament} className={` select-none border px-[15px] transition duration-300 ${quantity === 1 ? 'cursor-not-allowed bg-gray-300 text-gray-600' : 'cursor-pointer hover:bg-black hover:text-white'}`} >-</p>
                                 <p className="border px-4">{quantity}</p>
-                                <p onClick={handleIncreament} className="border px-[15px] transition duration-300 cursor-pointer hover:bg-black hover:text-white" >+</p>
+                                <p onClick={handleIncreament} className=" select-none border px-[15px] transition duration-300 cursor-pointer hover:bg-black hover:text-white" >+</p>
                             </div>
                             <div onClick={handleAddToCart} className="w-[200px] bg-black text-white text-center py-2 cursor-pointer hover:bg-transparent hover:text-black font-bold transition">
                                 Add to Cart

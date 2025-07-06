@@ -39,14 +39,17 @@ const ViewCart = () => {
             setDiscount(totalPrice * 0.2);
         } else {
             setCoupon("")
-            toast.error("Invalid coupon code")
+            if (coupon == "") {
+                toast.error("Please enter a coupon code")
+            } else {
+                toast.error("Invalid coupon code")
+            }
         }
     }
     const subTotal = totalPrice - discount
 
     // for payment
     const handlePayment = () => {
-        console.log('zxcz')
         navigate('/payment', {
             state: { totalPrice: subTotal }
         })
@@ -102,7 +105,7 @@ const ViewCart = () => {
                                         <div className="flex text-[15px]">
                                             <p
                                                 onClick={() => data[index].quantity > 1 && handleDecreament(index)}
-                                                className={`border px-[15px] transition duration-300 ${data[index].quantity === 1
+                                                className={` select-none border px-[15px] transition duration-300 ${data[index].quantity === 1
                                                     ? 'cursor-not-allowed bg-gray-300 text-gray-600'
                                                     : 'cursor-pointer hover:bg-black hover:text-white'
                                                     }`}
@@ -112,7 +115,7 @@ const ViewCart = () => {
                                             <p className="border px-[15px]">{product.quantity}</p>
                                             <p
                                                 onClick={() => handleIncreament(index)}
-                                                className="border px-[15px] cursor-pointer hover:bg-black hover:text-white transition"
+                                                className=" select-none border px-[15px] cursor-pointer hover:bg-black hover:text-white transition"
                                             >
                                                 +
                                             </p>

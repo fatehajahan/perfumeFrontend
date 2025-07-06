@@ -58,10 +58,6 @@ export const userSlice = createSlice({
       state.currentUser = null;
       localStorage.removeItem('user');
     },
-    // logoutUser: (state) => {
-    //   state.currentUser = null
-    //   localStorage.removeItem('user')
-    // }
   },
 });
 
