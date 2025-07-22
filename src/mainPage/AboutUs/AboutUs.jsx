@@ -1,6 +1,8 @@
 import React from 'react'
 import aboutImg1 from '../../assets/aboutUs/bg-14.jpg'
 import fixedImg from '../../assets/aboutUs/bg-13.jpg'
+import historyImg1 from '../../assets/aboutUs/bg-12.jpg'
+import historyImg2 from '../../assets/aboutUs/bg-15.jpg'
 
 const AboutUs = () => {
     return (
@@ -38,7 +40,42 @@ const AboutUs = () => {
                 </div>
             </div>
 
-            <div className='bg-aboutFixed bg-cover bg-no-repeat bg-center md:pt-[100px] md:pb-[80px] h-screen flex items-center md:justify-center md:bg-fixed'></div>
+            <div>
+                <div className='bg-aboutFixed bg-cover bg-no-repeat bg-center md:pt-[100px] md:pb-[80px] h-screen flex items-center md:justify-center md:bg-fixed'></div>
+            </div>
+
+            <div className='py-[150px]'>
+                <div className='container'>
+                    <div className='flex justify-between gap-x-[20px]'>
+                        <div className='w-1/2'>
+                            <img src={historyImg1} alt="" />
+                        </div>
+
+                        <div className='w-1/3 text-center flex flex-col justify-center items-center'>
+                            <p className='text-[16px]'>Sine 1995</p>
+                            <p className='font-cormot text-[68px]'>History</p>
+                            <p className='text-[15px]'>Donec dapibus ullamcorper magna quis posuere. Aenean tincidunt posuere tellus nec dapibus. Aliquam pharetra egestas tellus. Nulla sed quam ante. Curabitur porta pharetra nunc, in maximus ex ultricies a. Donec nibh turpis, eleifend ut tristique ut, aliquam eu urna. Fusce eget ante tellus. Vestibulum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className='pb-[150px]'>
+                <div className='container'>
+                    <div className='flex justify-between gap-x-[20px]'>
+                        <div className='w-1/3 text-center flex flex-col justify-center items-center'>
+                            <p className='text-[16px]'>Sine 1995</p>
+                            <p className='font-cormot text-[68px]'>History</p>
+                            <p className='text-[15px]'>Donec dapibus ullamcorper magna quis posuere. Aenean tincidunt posuere tellus nec dapibus. Aliquam pharetra egestas tellus. Nulla sed quam ante. Curabitur porta pharetra nunc, in maximus ex ultricies a. Donec nibh turpis, eleifend ut tristique ut, aliquam eu urna. Fusce eget ante tellus. Vestibulum.</p>
+                        </div>
+                        <div className='w-1/2'>
+                            <img src={historyImg2} alt="" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
