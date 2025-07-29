@@ -82,7 +82,7 @@ const Login = () => {
                         </Link>
 
                         <div className='pt-[20px]'>
-                            <Link to="/registration" className='font-urbanist md:text-base text-[15px]'>Didn't Registered Yet? What are you waiting for..? <span className='text-[#c6866b] font-bold'>Sign Up</span></Link>
+                            <Link to="/" className='font-urbanist md:text-base text-[15px]'>Didn't Registered Yet? What are you waiting for..? <span className='text-[#c6866b] font-bold'>Sign Up</span></Link>
                         </div>
                     </div>
                 </div>
