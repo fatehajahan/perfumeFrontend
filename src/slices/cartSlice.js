@@ -1,4 +1,3 @@
-// src/redux/slices/cartSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 // Helper to get cart by email

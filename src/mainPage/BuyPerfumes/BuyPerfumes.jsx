@@ -57,7 +57,7 @@ const BuyPerfumes = () => {
     <div className="md:py-[80px]">
       <div className="container">
         {isLoading ? (
-          <div className="text-center py-[100px] text-xl font-semibold">Loading...</div>
+          <div className="text-center py-[400px] text-xl font-semibold ">Loading...</div>
         ) : (
           <div>
             <div>
