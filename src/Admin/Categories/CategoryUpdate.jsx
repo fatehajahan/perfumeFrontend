@@ -4,63 +4,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const CategoryUpdate = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const url = import.meta.env.VITE_APP_URL
+  console.log(url)
+  const { id } = useParams()
+  const [categoryName, setCategoryName] = useState("")
+  const [categoryDescription, setCategoryDescription] = useState("")
 
-  const [categoryName, setCategoryName] = useState('');
-  const [categoryDescription, setCategoryDescription] = useState('');
-  const [loading, setLoading] = useState(true);
-
-  // Fetch category details on mount
-  useEffect(() => {
-    const fetchCategory = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_APP_URL}/category/getallSinglecategory/${id}`
-        );
-        setCategoryName(res.data.categoryName || '');
-        setCategoryDescription(res.data.categoryDescription || '');
-      } catch (err) {
-        console.error(err);
-        toast.error('Failed to load category details');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategory();
-  }, [id]);
-
-  // Update category
-  const updateCategory = async () => {
-    if (!categoryName || !categoryDescription) {
-      toast.error('Please fill in all fields');
-      return;
+  const handleUpdate = async () => {
+    const data = {
+      categoryName: categoryName,
+      categoryDescription: categoryDescription,
     }
-
-    try {
-      const res = await axios.patch(
-        `${import.meta.env.VITE_APP_URL}/category/updatesinglecategory/${id}`,
-        {
-          categoryName,
-          categoryDescription,
-        }
-      );
-
-      toast.success(res.data.message || 'Category Updated Successfully');
-      navigate('/categorylist');
-    } catch (err) {
-      console.error(err);
-      toast.error('Category Update Failed');
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen text-xl font-semibold">
-        Loading category details...
-      </div>
-    );
+    await axios.patch(`${url}/category/updatesinglecategory/${id}`, data)
+      .then((res) => {
+        toast.success(res.data.message)
+      })
   }
 
   return (
@@ -69,12 +27,9 @@ const CategoryUpdate = () => {
         position="top-center"
         autoClose={2000}
         hideProgressBar={false}
-        newestOnTop={false}
         closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
         pauseOnHover
+        draggable
         theme="light"
         transition={Bounce}
       />
@@ -114,7 +69,7 @@ const CategoryUpdate = () => {
         />
 
         <button
-          onClick={updateCategory}
+          onClick={handleUpdate}
           className="w-full bg-amber-700 hover:bg-amber-600 text-white font-semibold py-2 px-4 rounded transition duration-300"
         >
           Update Category
