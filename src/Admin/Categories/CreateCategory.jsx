@@ -20,6 +20,8 @@ const CreateCategory = () => {
         axios.post(`${url}/category/createcategory`, data)
             .then((res) => {
                 toast.success(res.data.message)
+                setCategoryDescription("")
+                setCategoryName("")
             })
             .catch((err) => toast.error("Category Creation Failed"));
     }
@@ -43,15 +45,15 @@ const CreateCategory = () => {
             <div>
                 {/* category name */}
                 <label htmlFor="categoryName">Category's Name</label>
-                <input onChange={(e) => setCategoryName(e.target.value)} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px]' />
+                <input onChange={(e) => setCategoryName(e.target.value)} value={categoryName} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px]' />
 
                 {/* category Description */}
                 <label htmlFor="categoryDescription">Category's Description</label>
-                <textarea onChange={(e) => setCategoryDescription(e.target.value)} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px] ' />
+                <textarea onChange={(e) => setCategoryDescription(e.target.value)} value={categoryDescription} type="text" className='border border-[#4a4a4a] py-[10px] px-[15px] w-full mb-[26px] ' />
             </div>
 
             <div onClick={handleCreateCategory} className='bg-amber-700 py-[20px] text-center cursor-pointer px-[9px] rounded-md text-white font-urbanist font-bold hover:bg-amber-500 hover:text-black transition duration-500'>
-                <button>Create a New Category</button>
+                <button className='cursor-pointer'>Create a New Category</button>
             </div>
         </div>
     )

@@ -10,7 +10,6 @@ const CategoryList = () => {
             .then((res) => setCategories(res.data.data))
     }, [])
     console.log(categories)
-    // const TABLE_HEAD = ["Sr No", "Category Name", "Category Description", "Update", "Delete"];
 
     const TABLE_ROWS = categories
 
