@@ -35,6 +35,7 @@ import Women from "./mainPage/Women/Women";
 import Men from "./mainPage/Men/Men";
 import Payment from "./mainPage/Payment/Payment";
 import AboutUs from "./mainPage/AboutUs/AboutUs";
+import SubCategoryUpdate from "./Admin/SubCategory/SubCategoryUpdate";
 
 const Layout = () => {
   const [cartOpen, setCartOpen] = useState(false)
@@ -96,11 +97,14 @@ const router = createBrowserRouter(
         <Route path="/categorylist" element={<CategoryList />} />
         <Route path="/createproduct" element={<CreateProduct />} />
         <Route path="/updatecategory/:id" element={<CategoryUpdate />} />
+
+        <Route path="/productList" element={<ProductLists />} />
         <Route path="/updateProduct/:id" element={<ProductUpdate />} />
+
         <Route path="/createsubcategory" element={<CreateSubCategory />} />
         <Route path="/subCategoryList" element={<SubCategoryList />} />
-        <Route path="/productList" element={<ProductLists />} />
-        <Route path="/updateProduct/:id" element={<ProductLists />} />
+        <Route path="/updatesubcategory/:id" element={<SubCategoryUpdate />} />
+
         <Route path="/orderList" element={<Orders />} />
       </Route>
 
