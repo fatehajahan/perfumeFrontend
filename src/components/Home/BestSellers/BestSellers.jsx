@@ -5,13 +5,14 @@ import axios from 'axios'
 
 const BestSellers = () => {
     const [products, setProducts] = useState([]);
+    const [getCategory, setGetCategory] = useState([]);
     const url = import.meta.env.VITE_APP_URL
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const response = await axios.get(`${url}/product/getallproduct`);
-                setProducts(response.data.data);  // because your backend returns { data: [...] }
+                setProducts(response.data.data);
             } catch (error) {
                 console.error('Error fetching products:', error);
             }
@@ -21,6 +22,16 @@ const BestSellers = () => {
     }, []);
     const bestSellers = products.slice(0, 4);
 
+    useEffect(() => {
+        axios
+            .get(`${url}/category/getallcategory`)
+            .then((res) => {
+                setGetCategory(res.data.data || []);
+            })
+            .catch((err) => {
+                console.error('Error fetching categories:', err);
+            });
+    }, []);
     return (
         <div className='md:py-[80px]'>
             <div className="container">
@@ -43,7 +54,8 @@ const BestSellers = () => {
                                     )}
                                     <img src={product.images[0]} alt="" className='w-[534px] md:w-auto' />
                                     <div className='pt-[15px]'>
-                                        <p className='text-[#9D9D9D] text-[15px]'>Exclusive</p>
+                                        <p className='text-[#9D9D9D] text-[15px]'>{getCategory.find((cat) => cat._id === product.category)?.categoryName ||
+                                            'Unknown Category'}</p>
                                         <p className='font-cormot text-black text-[25px] font-semibold'>{product.name}</p>
                                         <div className='flex gap-x-[10px] text-yellow-400'>
                                             <FaStar />
