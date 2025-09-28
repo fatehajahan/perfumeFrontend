@@ -9,8 +9,8 @@ import { Link } from 'react-router-dom'
 
 const NewArraival = () => {
     const { ref: leftRef, inView: leftInView } = useInView({
-        triggerOnce: true,   // animation happens once
-        threshold: 0.2       // triggers when 20% is visible
+        triggerOnce: true,
+        threshold: 0.2      
     })
 
     const { ref: rightRef, inView: rightInView } = useInView({
