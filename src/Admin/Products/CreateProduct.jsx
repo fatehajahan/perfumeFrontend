@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 const CreateProduct = () => {
-// const url = import.meta.env.VITE_APP_URL
   const url = import.meta.env.VITE_APP_URL; // hosted backend URL
   console.log(url)
   const [form, setForm] = useState({

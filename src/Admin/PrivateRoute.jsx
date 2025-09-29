@@ -23,8 +23,8 @@ const PrivateRoute = ({ children }) => {
 
   if (loading) {
     return <div className="flex items-center justify-center h-full bg-white rounded-xl shadow-md">
-      <h1 className="text-3xl font-bold text-gray-800 font-urbanist">
-        ...
+      <h1 className="text-3xl font-bold text-gray-800 font-urbanist py-2">
+        Please Wait ...
       </h1>
     </div>
   }

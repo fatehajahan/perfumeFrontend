@@ -5,6 +5,8 @@ import { Outlet } from 'react-router-dom';
 
 const AdminDashboard = () => {
   return (
+    // admin email : xodo@mailinator.com
+    // admin password : 1234
     <div className="flex flex-col h-screen w-full">
       <Header />
       <div className="flex flex-1 overflow-hidden">
