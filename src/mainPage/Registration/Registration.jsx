@@ -20,8 +20,8 @@ const Registration = () => {
         })
     }
     const handleSubmit = () => {
-        if(!userData.email || !userData.firstName || !userData.lastName || !userData.password){
-           return toast.error("please give your informations")
+        if (!userData.email || !userData.firstName || !userData.lastName || !userData.password) {
+            return toast.error("please give your informations")
         }
         console.log(userData, "userdata")
         axios.post(`${url}/authentication/registration`, userData)
@@ -72,7 +72,7 @@ const Registration = () => {
 
                     <div onClick={handleSubmit} className="submitBtn mt-[30px] text-center ">
                         <Link>
-                            <button  className='bg-[#c2155b] w-[150px] text-center py-[5px] mx-auto cursor-pointer font-urbanist font-bold text-white hover:bg-transparent hover:text-black transition duration-500'>Sign Up</button>
+                            <button className='bg-[#c2155b] w-[150px] text-center py-[5px] mx-auto cursor-pointer font-urbanist font-bold text-white hover:bg-transparent hover:text-black transition duration-500'>Sign Up</button>
                         </Link>
 
                         <div className='pt-[20px]'>
