@@ -24,7 +24,7 @@ const Registration = () => {
            return toast.error("please give your informations")
         }
         console.log(userData, "userdata")
-        axios.post("http://localhost:3000/api/v1/authentication/registration", userData)
+        axios.post(`${url}/authentication/registration`, userData)
             .then((res) => {
                 toast.success(res.data.message)
                 console.log('reg done')
