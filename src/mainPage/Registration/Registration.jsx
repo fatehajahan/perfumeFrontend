@@ -8,18 +8,18 @@ const Registration = () => {
     const url = import.meta.env.VITE_APP_URL
     console.log(url)
     const navigate = useNavigate()
-    const [userData, setUserData] =  useState({
+    const [userData, setUserData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: "",
     })
-    const handleChange =  (e) => {
+    const handleChange = (e) => {
         setUserData({
             ...userData, [e.target.name]: e.target.value
         })
     }
-    const handleSubmit =  () => {
+    const handleSubmit = () => {
         if(!userData.email || !userData.firstName || !userData.lastName || !userData.password){
            return toast.error("please give your informations")
         }
