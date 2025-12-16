@@ -1,81 +1,124 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../provider/AuthProvider';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ChevronDown, LayoutGrid, Package, Layers, ShoppingCart, ClipboardList } from 'lucide-react';
 
 const Sidebar = () => {
-    const url = import.meta.env.VITE_APP_URL
-    console.log(url)
+  const url = import.meta.env.VITE_APP_URL;
+  const location = useLocation();
 
-    const [isOpen, setIsOpen] = useState(false);
-    const demo = useContext(AuthContext)
-    console.log(demo, 'sdsds')
+  const [isOpen, setIsOpen] = useState(true);
+  const [user, setUser] = useState(null);
 
-    const [user, setUser] = useState("")
-    useEffect(() => {
-        axios.get(`${url}/authentication/currentuser`, { withCredentials: true }).then((res) => {
-            setUser(res.data)
-        })
-    }, [])
-    console.log(user)
-    return (
-        <div className='w-[20%] bg-[linear-gradient(90deg,#AE8625,#F7EF8A,#D2AC47,#EDC967)] py-[20px] flex flex-col items-center h-screen'>
-            <h1 className='font-urbanist text-[30px] font-bold'>Inessa Admin Panel</h1>
-            {
-                user?.role == "admin" && <div>
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="inline-flex justify-center w-[300px] rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
-                    >
-                        E-Commerce
-                    </button>
+  useEffect(() => {
+    axios
+      .get(`${url}/authentication/currentuser`, { withCredentials: true })
+      .then((res) => setUser(res.data));
+  }, [url]);
 
-                    {isOpen && (
-                        <div className="z-10 mt-2 w-[300px] rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 font-urbanist ">
-                            <div className="py-1">
-                                {/* Category */}
-                                <p className='pb-[13px] text-[30px] pl-[4px] underline'>Category Section</p>
-                                <Link to="/createcategory" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Create Category
-                                </Link>
-                                <Link to="/categorylist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Category List
-                                </Link>
+  const isActive = (path) => location.pathname === path;
 
-                                {/* SubCategory */}
-                                <p className='pb-[13px] text-[30px] pl-[4px] underline'>SubCategory Section</p>
-                                <Link to="/createsubcategory" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Create SubCategory
-                                </Link>
-                                <Link to="/subCategoryList" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    SubCategory List
-                                </Link>
+  return (
+    <aside className="w-[280px] h-screen bg-slate-900 text-slate-100 flex flex-col">
+      {/* Header */}
+      <div className="px-6 py-5 border-b border-slate-700">
+        <h1 className="text-2xl font-bold tracking-wide">Inessa Admin</h1>
+        <p className="text-sm text-slate-400">Management Panel</p>
+      </div>
 
-                                {/* Product */}
-                                <p className='pb-[13px] text-[30px] pl-[4px] underline'> Product Section</p>
-                                <Link to="/createproduct" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Create Product
-                                </Link>
-                                <Link to="/productList" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Product List
-                                </Link>
+      {/* Admin Menu */}
+      {user?.role === 'admin' && (
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-slate-800 hover:bg-slate-700 transition"
+          >
+            <span className="flex items-center gap-2 text-sm font-semibold">
+              <LayoutGrid size={18} /> E‑Commerce
+            </span>
+            <ChevronDown
+              size={18}
+              className={`transition ${isOpen ? 'rotate-180' : ''}`}
+            />
+          </button>
 
-                                {/* Order */}
-                                <p className='pb-[13px] text-[30px] pl-[4px] underline'>Order Section</p>
-                                <Link to="/orderList" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-[18px]">
-                                    Order List
-                                </Link>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            }
+          {isOpen && (
+            <div className="space-y-5 pl-2">
+              {/* Category */}
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-400 mb-2">Category</p>
+                <nav className="space-y-1">
+                  <Link to="/createcategory" className={`sidebar-link ${isActive('/createcategory') && 'active'}`}>
+                    <Layers size={16} /> Create Category
+                  </Link>
+                  <Link to="/categorylist" className={`sidebar-link ${isActive('/categorylist') && 'active'}`}>
+                    <Layers size={16} /> Category List
+                  </Link>
+                </nav>
+              </div>
 
-            {
-                user?.role == "user" && <div><h1>Only for admins</h1></div>
-            }
+              {/* SubCategory */}
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-400 mb-2">Subcategory</p>
+                <nav className="space-y-1">
+                  <Link to="/createsubcategory" className="sidebar-link">
+                    <Layers size={16} /> Create SubCategory
+                  </Link>
+                  <Link to="/subCategoryList" className="sidebar-link">
+                    <Layers size={16} /> SubCategory List
+                  </Link>
+                </nav>
+              </div>
+
+              {/* Product */}
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-400 mb-2">Products</p>
+                <nav className="space-y-1">
+                  <Link to="/createproduct" className="sidebar-link">
+                    <Package size={16} /> Create Product
+                  </Link>
+                  <Link to="/productList" className="sidebar-link">
+                    <Package size={16} /> Product List
+                  </Link>
+                </nav>
+              </div>
+
+              {/* Orders */}
+              <div>
+                <p className="text-xs uppercase tracking-wider text-slate-400 mb-2">Orders</p>
+                <nav className="space-y-1">
+                  <Link to="/orderList" className="sidebar-link">
+                    <ClipboardList size={16} /> Order List
+                  </Link>
+                </nav>
+              </div>
+            </div>
+          )}
         </div>
-    )
-}
+      )}
 
-export default Sidebar
+      {/* Non‑admin */}
+      {user?.role === 'user' && (
+        <div className="flex-1 flex items-center justify-center text-slate-400 text-sm">
+          Admin access only
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="px-6 py-4 border-t border-slate-700 text-xs text-slate-400">
+        © 2025 Inessa
+      </div>
+    </aside>
+  );
+};
+
+export default Sidebar;
+
+/* Tailwind helper classes (add in global CSS)
+.sidebar-link {
+  @apply flex items-center gap-2 px-4 py-2 rounded-md text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition;
+}
+.active {
+  @apply bg-slate-800 text-white;
+}
+*/
