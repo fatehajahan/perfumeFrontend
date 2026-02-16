@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import { useInView } from 'react-intersection-observer'
 import 'animate.css'
 import new1 from '../../../assets/homepage/new1.jpg'
@@ -19,7 +19,7 @@ const NewArraival = () => {
     })
 
     return (
-        <div className='md:py-[130px] py-[50px]'>
+        <div className='md:py-[130px] py-[50px] lg:block md:hidden block'>
             <div className="container">
                 {/* First Section */}
                 <div className='firstArraival md:flex justify-between items-center'>

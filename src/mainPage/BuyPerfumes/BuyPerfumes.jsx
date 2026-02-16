@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +11,7 @@ const BuyPerfumes = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [productPerPage, setProductPerPage] = useState(4);
+  const [productPerPage] = useState(4);
   const [count, setCount] = useState(0);
 
   // Fetch all categories
@@ -67,7 +67,7 @@ const BuyPerfumes = () => {
               <h3 className="font-cormot md:text-[84px] text-[30px] py-[20px]">Shop</h3>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4">
+            <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-[20px] mx-auto max-w-[1320px] px-4">
               {products.length > 0 ? (
                 products.map((product) => (
                   <Link key={product._id} to={`/product/${product._id}`} className="relative">
